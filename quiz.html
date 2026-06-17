@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商务英语刷题系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;color:#333}
+.container{max-width:860px;margin:0 auto;padding:20px}
+.header{text-align:center;padding:30px 0;color:#fff}
+.header h1{font-size:2.4em;margin-bottom:8px;text-shadow:2px 2px 6px rgba(0,0,0,.2)}
+.header p{font-size:1.1em;opacity:.9}
+.card{background:#fff;border-radius:20px;padding:28px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.section-title{font-size:1.3em;color:#667eea;margin-bottom:16px;font-weight:700}
+.checkbox-group{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:20px}
+.checkbox-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#f5f5f5;border-radius:12px;cursor:pointer;transition:all .3s;border:2px solid transparent;font-weight:500;gap:8px;user-select:none}
+.checkbox-item:hover{background:#e8e8ff;border-color:#c5cae9;transform:translateY(-2px)}
+.checkbox-item.selected{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:#667eea;box-shadow:0 4px 12px rgba(102,126,234,.3);transform:translateY(-2px)}
+.checkbox-item .check-icon{width:20px;height:20px;border:2px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;transition:all .3s;color:transparent;flex-shrink:0}
+.checkbox-item.selected .check-icon{background:#fff;border-color:#fff;color:#667eea}
+.mode-group{display:flex;gap:10px;margin-bottom:20px}
+.mode-btn{padding:10px 24px;border-radius:20px;border:2px solid #e0e0e0;background:#fff;cursor:pointer;transition:.3s;font-weight:600}
+.mode-btn:hover{border-color:#667eea;color:#667eea}
+.mode-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:#667eea}
+.btn{padding:12px 28px;border:none;border-radius:12px;font-size:1em;font-weight:700;cursor:pointer;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(102,126,234,.4)}
+.btn-secondary{background:#f1f3f4;color:#555}
+.btn-secondary:hover{background:#e8eaed}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.stats-bar{display:flex;justify-content:space-around;padding:16px;background:#f8f9ff;border-radius:14px;margin-bottom:16px}
+.stat-item{text-align:center}
+.stat-number{font-size:1.8em;font-weight:800;color:#667eea}
+.stat-label{font-size:.85em;color:#666;margin-top:2px}
+.progress-bar{height:14px;background:#e0e0e0;border-radius:7px;overflow:hidden;margin-bottom:16px;position:relative}
+.progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);transition:width .5s;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px}
+  .sub-progress-bar{height:10px;background:#e8e8ff;border-radius:5px;overflow:hidden;margin:10px 0 16px;transition:.3s}
+  .sub-progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);transition:width .5s;border-radius:5px}
+  .progress-info{display:flex;justify-content:space-between;font-size:.85em;color:#667eea;font-weight:600;margin-bottom:4px}
+.question-card{background:#fff;border-radius:20px;padding:28px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.question-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #f0f0f0}
+.question-tag{background:#667eea;color:#fff;padding:4px 12px;border-radius:16px;font-size:.8em;font-weight:600}
+.group-label{color:#999;font-size:.85em}
+.question-title{font-size:1.15em;line-height:1.7;margin-bottom:18px;color:#333;font-weight:600}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{display:flex;align-items:center;padding:14px 18px;background:#f8f9ff;border-radius:12px;cursor:pointer;transition:.3s;border:2px solid transparent;gap:12px}
+.option:hover{background:#eef1ff;border-color:#667eea}
+.option.selected{background:#eef1ff;border-color:#667eea}
+.option.correct{background:#e8f5e9;border-color:#34a853}
+.option.wrong{background:#fce8e6;border-color:#ea4335}
+.option-key{width:30px;height:30px;border-radius:50%;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#666;flex-shrink:0;font-size:.85em}
+.option.selected .option-key{background:#667eea;color:#fff}
+.option.correct .option-key{background:#34a853;color:#fff}
+.option.wrong .option-key{background:#ea4335;color:#fff}
+.input-answer{width:100%;padding:14px 18px;border:2px solid #e0e0e0;border-radius:12px;font-size:1em;transition:.3s;margin-bottom:12px}
+.input-answer:focus{outline:none;border-color:#667eea}
+.input-answer.correct{border-color:#34a853;background:#e8f5e9}
+.input-answer.wrong{border-color:#ea4335;background:#fce8e6}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;padding:14px;background:#f8f9ff;border-radius:14px;border:2px dashed #c5cae9}
+.word-bank-title{width:100%;font-weight:700;color:#667eea;margin-bottom:6px;font-size:.95em}
+.word-chip{padding:6px 12px;background:#fff;border-radius:16px;border:2px solid #e8eaf6;font-size:.9em;color:#555}
+.fill-item{margin-bottom:18px;padding:16px;background:#f8f9ff;border-radius:14px;border-left:4px solid #667eea}
+.fill-sentence{font-size:1.05em;line-height:1.7;margin-bottom:10px;color:#444}
+.fill-input{width:100%;padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;font-size:1em;transition:.3s}
+.fill-input:focus{outline:none;border-color:#667eea}
+.fill-input.correct{border-color:#34a853;background:#e8f5e9}
+.fill-input.wrong{border-color:#ea4335;background:#fce8e6}
+.fill-ans{display:none;margin-top:8px;padding:8px 12px;background:#e8eaf6;border-radius:8px;color:#667eea;font-weight:600;font-size:.9em}
+.fill-ans.show{display:block}
+.answer-section{margin-top:16px;padding:16px;background:#f5f7ff;border-radius:12px;border-left:4px solid #667eea;display:none}
+.answer-section.show{display:block}
+.answer-title{font-weight:700;color:#667eea;margin-bottom:6px}
+.answer-text{color:#555;line-height:1.6;font-size:.95em}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px}
+.translate-box{background:#f8f9ff;padding:16px;border-radius:14px;margin-bottom:14px;font-size:1.05em;line-height:1.8;color:#555;border:2px solid #e8eaf6}
+.result-panel{text-align:center;padding:30px}
+.result-score{font-size:4em;font-weight:800;color:#667eea;margin:16px 0}
+.result-message{font-size:1.1em;color:#666;margin-bottom:24px}
+.mistake-item{padding:16px;background:#f8f9ff;border-radius:14px;margin-bottom:10px;border-left:4px solid #ea4335}
+.mistake-q{font-weight:600;margin-bottom:6px;color:#333;font-size:.95em}
+.mistake-user{color:#ea4335;font-size:.9em;margin-bottom:4px}
+.mistake-ans{color:#34a853;font-size:.9em;font-weight:600}
+.mistake-time{color:#999;font-size:.8em;margin-top:4px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-60px);padding:14px 32px;border-radius:12px;color:#fff;font-weight:700;font-size:1.1em;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:1000;transition:transform .4s ease,opacity .4s ease;opacity:0}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.success{background:#34a853}
+.toast.error{background:#ea4335}
+.spell-tip{margin-top:8px;padding:8px 12px;border-radius:8px;font-size:.9em;display:none}
+.spell-tip.show{display:block}
+.spell-tip.ok{background:#e8f5e9;color:#2e7d32}
+.spell-tip.err{background:#fce8e6;color:#c62828}
+.group-title{text-align:center;padding:10px 0;margin-bottom:10px;color:#667eea;font-weight:700;font-size:1.1em}
+.hidden{display:none!important}
+@media(max-width:600px){.header h1{font-size:1.8em}.checkbox-group{grid-template-columns:repeat(2,1fr)}.stats-bar{flex-direction:column;gap:10px}.controls{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header"><h1>商务英语刷题系统</h1><p>Unit 1-5 · 词汇 · 选词填空 · 段落翻译</p></div>
+
+<div id="setupPanel" class="card">
+<div class="section-title">选择单元</div>
+<div class="checkbox-group" id="unitGroup">
+<div class="checkbox-item" data-value="1" data-group="unit"><span class="check-icon">✓</span>Unit 1</div>
+<div class="checkbox-item" data-value="2" data-group="unit"><span class="check-icon">✓</span>Unit 2</div>
+<div class="checkbox-item" data-value="3" data-group="unit"><span class="check-icon">✓</span>Unit 3</div>
+<div class="checkbox-item" data-value="4" data-group="unit"><span class="check-icon">✓</span>Unit 4</div>
+<div class="checkbox-item" data-value="5" data-group="unit"><span class="check-icon">✓</span>Unit 5</div>
+</div>
+<div class="section-title">选择题型</div>
+<div class="checkbox-group" id="typeGroup">
+<div class="checkbox-item" data-value="vocab-en" data-group="type"><span class="check-icon">✓</span>词汇英译中</div>
+<div class="checkbox-item" data-value="vocab-cn" data-group="type"><span class="check-icon">✓</span>词汇中译英</div>
+<div class="checkbox-item" data-value="fill" data-group="type"><span class="check-icon">✓</span>选词填空</div>
+<div class="checkbox-item" data-value="translate" data-group="type"><span class="check-icon">✓</span>段落翻译</div>
+</div>
+<div class="section-title">出题模式</div>
+<div class="mode-group">
+<button class="mode-btn active" data-mode="sequential">顺序出题</button>
+<button class="mode-btn" data-mode="random">随机打乱</button>
+</div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button class="btn btn-primary" id="startBtn">开始刷题</button>
+<button class="btn btn-secondary" id="mistakeBtn">错题本</button>
+</div>
+</div>
+
+<div id="statsPanel" class="card hidden">
+<div class="stats-bar">
+<div class="stat-item"><div class="stat-number" id="stCorrect">0</div><div class="stat-label">正确</div></div>
+<div class="stat-item"><div class="stat-number" id="stWrong">0</div><div class="stat-label">错误</div></div>
+<div class="stat-item"><div class="stat-number" id="stRate">0%</div><div class="stat-label">正确率</div></div>
+<div class="stat-item"><div class="stat-number" id="stProg">0/0</div><div class="stat-label">进度</div></div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div><div class="progress-text" id="progText">0%</div></div>
+</div>
+
+<div id="quizPanel" class="hidden">
+<div class="group-title" id="groupTitle"></div>
+<div class="progress-info" id="subProgInfo"></div>
+<div class="sub-progress-bar"><div class="sub-progress-fill" id="subProgFill" style="width:0%"></div></div>
+<div id="questionBox"></div>
+  <div class="controls" style="display:flex;gap:10px;justify-content:space-between">
+    <button class="btn btn-secondary" id="prevBtn">上一题</button>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-secondary" id="backToSetupBtn">返回设置</button>
+      <button class="btn btn-primary" id="checkBtn">提交答案</button>
+    </div>
+    <button class="btn btn-secondary" id="nextBtn">下一题</button>
+  </div>
+</div>
+
+<div id="resultPanel" class="card hidden">
+<div class="result-panel">
+<div class="result-score" id="finalScore">0%</div>
+<div class="result-message" id="resultMsg"></div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-primary" id="restartBtn">再来一次</button>
+<button class="btn btn-secondary" id="backBtn">返回设置</button>
+<button class="btn btn-secondary" id="viewMistakeBtn">查看错题</button>
+</div>
+</div>
+</div>
+
+<div id="mistakePanel" class="card hidden">
+<div class="section-title">我的错题本</div>
+<div id="mistakeList"></div>
+<div style="margin-top:16px;text-align:center;display:flex;gap:10px;justify-content:center">
+<button class="btn btn-secondary" id="backFromMistakeBtn">返回首页</button>
+<button class="btn btn-secondary" id="clearMistakeBtn" style="background:#ea4335;color:#fff">清空错题</button>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+// ===================== STATE =====================
+let groups=[],gi=0,qi=0,answers={},mode='sequential',mistakes=JSON.parse(localStorage.getItem('engM')||'[]');
+const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','translate':'段落翻译'};
+
+// ===================== INIT =====================
+function init(){
+document.querySelectorAll('#unitGroup .checkbox-item').forEach(el=>{
+  el.addEventListener('click',function(e){
+    e.stopPropagation();
+    this.classList.toggle('selected');
+  });
+});
+document.querySelectorAll('#typeGroup .checkbox-item').forEach(el=>{
+  el.addEventListener('click',function(e){
+    e.stopPropagation();
+    this.classList.toggle('selected');
+  });
+});
+document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode}));
+document.getElementById('startBtn').addEventListener('click',start);
+document.getElementById('mistakeBtn').addEventListener('click',showMistakes);
+document.getElementById('prevBtn').addEventListener('click',prev);
+document.getElementById('nextBtn').addEventListener('click',next);
+document.getElementById('checkBtn').addEventListener('click',check);
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.getElementById('backBtn').addEventListener('click',back);
+document.getElementById('viewMistakeBtn').addEventListener('click',showMistakes);
+document.getElementById('backFromMistakeBtn').addEventListener('click',back);
+document.getElementById('clearMistakeBtn').addEventListener('click',clearM);
+document.getElementById('backToSetupBtn').addEventListener('click',back);
+}
+function sh(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function shOpt(c,u,field){
+  const all=bank[u].vocab;
+  const o=all.filter(i=>i[field]!==c);
+  const p=sh(o).slice(0,3).map(i=>i[field]);
+  return sh([...p,c]);
+}
+
+// ===================== START =====================
+function start(){
+const units=Array.from(document.querySelectorAll('#unitGroup .checkbox-item.selected')).map(el=>+el.dataset.value).sort((a,b)=>a-b);
+const types=Array.from(document.querySelectorAll('#typeGroup .checkbox-item.selected')).map(el=>el.dataset.value);
+if(!units.length||!types.length){alert('请至少选择一个单元和一种题型！');return}
+groups=[];
+for(const u of units){
+  const unitData=bank[u];if(!unitData)continue;
+  for(const t of types){
+    if(t==='vocab-en'){
+      const items=unitData.vocab||[];
+      const qs=items.map((it,idx)=>({id:`ve-${u}-${idx}`,type:t,unit:u,q:`「${it.e}」的中文意思是？`,a:it.c,opts:shOpt(it.c,u,'c')}));
+      if(qs.length)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:mode==='random'?sh(qs):qs});
+    }
+    if(t==='vocab-cn'){
+      const items=unitData.vocab||[];
+      const qs=items.map((it,idx)=>({id:`vc-${u}-${idx}`,type:t,unit:u,q:`「${it.c}」的英文表达是？`,a:it.e}));
+      if(qs.length)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:mode==='random'?sh(qs):qs});
+    }
+    if(t==='fill'){
+      const sets=unitData.fill||[];
+      sets.forEach((set,setIdx)=>{
+        if(!set.bl||!set.bl.length)return;
+        groups.push({
+          unit:u,type:t,
+          name:`Unit ${u} · ${typeNames[t]} · ${set.title||'练习'+(setIdx+1)}`,
+          questions:[{id:`f-${u}-${setIdx}`,type:t,unit:u,data:set}]
+        });
+      });
+    }
+    if(t==='translate'){
+      const tr=unitData.trans;
+      if(tr&&tr.e)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:[{id:`t-${u}`,type:t,unit:u,p:tr.e,a:tr.c}]});
+    }
+  }
+}
+gi=0;qi=0;answers={};
+document.getElementById('setupPanel').classList.add('hidden');
+document.getElementById('mistakePanel').classList.add('hidden');
+document.getElementById('resultPanel').classList.add('hidden');
+document.getElementById('statsPanel').classList.remove('hidden');
+document.getElementById('quizPanel').classList.remove('hidden');
+updateStats();render();
+}
+
+// ===================== RENDER =====================
+function render(){
+const g=groups[gi];if(!g){showResult();return}
+const q=g.questions[qi];if(!q){nextGroup();return}
+const box=document.getElementById('questionBox');
+document.getElementById('groupTitle').textContent=g.name;
+// 更新组内进度条
+const subProgInfo=document.getElementById('subProgInfo');
+const subProgFill=document.getElementById('subProgFill');
+if(subProgInfo&&subProgFill){
+  const cur=qi+1,tot=g.questions.length;
+  subProgInfo.textContent=`第 ${cur} 题 / 共 ${tot} 题`;
+  subProgFill.style.width=(cur/tot*100)+'%';
+}
+document.getElementById('checkBtn').textContent='提交答案';
+document.getElementById('checkBtn').disabled=false;
+let html=`<div class="question-card"><div class="question-header"><span class="question-tag">${typeNames[q.type]}</span><span class="group-label">${qi+1}/${g.questions.length}</span></div>`;
+if(q.type==='vocab-en'){
+html+=`<div class="question-title">${q.q}</div><div class="options">`;
+q.opts.forEach((opt,i)=>{const k=String.fromCharCode(65+i);html+=`<div class="option" data-v="${opt}" onclick="selOpt(this)"><div class="option-key">${k}</div><div>${opt}</div></div>`});
+html+=`</div><div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
+}else if(q.type==='vocab-cn'){
+html+=`<div class="question-title">${q.q}</div>`;
+html+=`<input type="text" class="input-answer" id="usrIn" placeholder="请输入英文（注意拼写）" autocomplete="off">`;
+html+=`<div class="spell-tip" id="spTip"></div>`;
+html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
+}else if(q.type==='fill'){
+html+=`<div class="question-title">阅读下列句子，从上方 Word Bank 中选择合适的词填入空白处。</div>`;
+html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${q.data.wb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
+q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div><input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
+html+=`<div class="answer-section" id="ansSec"><div class="answer-title">提示</div><div class="answer-text">填完所有空后点击提交答案</div></div>`;
+}else if(q.type==='translate'){
+html+=`<div class="question-title">请将以下英文段落翻译成中文：</div><div class="translate-box">${q.p}</div>`;
+html+=`<textarea class="input-answer" id="usrIn" rows="6" placeholder="请输入中文翻译..."></textarea>`;
+html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考译文</div><div class="answer-text">${q.a}</div></div>`;
+}
+html+=`</div>`;box.innerHTML=html;
+// restore state
+const sid=q.id;if(answers[sid]){
+const ans=answers[sid];document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
+if(q.type==='vocab-en'){document.querySelectorAll('.option').forEach(o=>{if(o.dataset.v===ans.u)o.classList.add(ans.c?'correct':'wrong');if(o.dataset.v===q.a&&!ans.c)o.classList.add('correct')})}
+else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');document.getElementById('spTip').textContent=ans.c?'拼写正确！':`拼写错误！你的：${ans.u} 正确：${q.a}`;document.getElementById('spTip').className='spell-tip '+(ans.c?'ok':'err')+' show'}
+else if(q.type==='fill'){ans.dt.forEach((d,i)=>{const ip=document.getElementById('fi'+i);if(ip){ip.value=d.u;ip.classList.add(d.c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show')}})}
+else{const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong')}
+document.getElementById('ansSec').classList.add('show');
+}}
+
+function selOpt(el){
+const g=groups[gi],q=g.questions[qi];
+if(answers[q.id])return;
+if(q.type==='vocab-en'){
+const ua=el.dataset.v,ok=ua===q.a;
+el.classList.add('selected');
+if(ok){el.classList.add('correct');toast('正确！','success');}
+else{el.classList.add('wrong');document.querySelectorAll('.option').forEach(o=>{if(o.dataset.v===q.a)o.classList.add('correct')});}
+answers[q.id]={u:ua,c:ok};
+document.getElementById('ansSec').classList.add('show');
+document.getElementById('checkBtn').textContent='已作答';
+document.getElementById('checkBtn').disabled=true;
+if(!ok)addMistake(q,ua,null);
+updateStats();
+if(ok)setTimeout(next,800);
+}else{
+document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+el.classList.add('selected');
+}
+}
+
+// ===================== CHECK =====================
+function check(){
+const g=groups[gi],q=g.questions[qi];if(answers[q.id])return;
+let ok=false,ua='',dt=[];
+if(q.type==='vocab-en'){const s=document.querySelector('.option.selected');if(!s){toast('请选择一个选项','error');return}ua=s.dataset.v;ok=ua===q.a;if(ok)s.classList.add('correct');else{s.classList.add('wrong');document.querySelectorAll('.option').forEach(o=>{if(o.dataset.v===q.a)o.classList.add('correct')})}}
+else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=spCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'拼写正确！':`拼写错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
+else if(q.type==='fill'){const ips=document.querySelectorAll('.fill-input');let allOk=true;ips.forEach((ip,i)=>{const v=ip.value.trim();const a=ip.dataset.a;const c=spCheck(v,a);if(!c)allOk=false;ip.classList.add(c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show');dt.push({u:v,c:c,a:a})});ok=allOk;ua=dt.map(d=>d.u).join(' | ')}
+else if(q.type==='translate'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(ua.length<10){toast('翻译内容太短，请认真作答','error');return}ok=trCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong')}
+answers[q.id]={u:ua,c:ok,dt:dt.length?dt:null};
+if(!ok)addMistake(q,ua,dt);else toast('正确！','success');
+document.getElementById('ansSec').classList.add('show');
+document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
+updateStats();
+if(ok)setTimeout(next,1200);
+}
+
+function spCheck(u,a){const x=u.toLowerCase().trim().replace(/[.,;:!?]/g,'');const y=a.toLowerCase().trim().replace(/[.,;:!?]/g,'');if(!x||!y)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;if(x+'s'===y||y+'s'===x||x+'es'===y||y+'es'===x)return true;return false}
+function trCheck(u,a){if(u.length<a.length*0.3)return false;const uw=u.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());const aw=a.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());let m=0;for(const c of aw)if(u.includes(c))m++;return m>=aw.length*0.25}
+
+function next(){const g=groups[gi];qi++;if(qi>=g.questions.length){nextGroup();return}render();updateStats()}
+function prev(){if(qi>0){qi--;render();updateStats()}}
+function nextGroup(){gi++;qi=0;if(gi>=groups.length){showResult();return}render();updateStats()}
+
+// ===================== NAV & STATS =====================
+function updateStats(){
+const total=groups.reduce((s,g)=>s+g.questions.length,0);
+const ans=Object.keys(answers).length;
+const cor=Object.values(answers).filter(a=>a.c).length;
+const rate=ans?Math.round(cor/ans*100):0;
+document.getElementById('stCorrect').textContent=cor;
+document.getElementById('stWrong').textContent=ans-cor;
+document.getElementById('stRate').textContent=rate+'%';
+document.getElementById('stProg').textContent=ans+'/'+total;
+document.getElementById('progFill').style.width=ans/total*100+'%';
+if(document.getElementById('progText')){document.getElementById('progText').textContent=total?Math.round(ans/total*100)+'%':'0%';}
+}
+
+function showResult(){
+const total=groups.reduce((s,g)=>s+g.questions.length,0);
+const cor=Object.values(answers).filter(a=>a.c).length;
+const rate=total?Math.round(cor/total*100):0;
+document.getElementById('finalScore').textContent=rate+'%';
+let msg='';if(rate>=90)msg='太棒了！';else if(rate>=70)msg='表现不错！';else if(rate>=50)msg='还有进步空间！';else msg='别灰心，多练习就会进步！';
+document.getElementById('resultMsg').textContent=msg;
+document.getElementById('quizPanel').classList.add('hidden');
+document.getElementById('statsPanel').classList.add('hidden');
+document.getElementById('resultPanel').classList.remove('hidden');
+}
+function restart(){answers={};gi=0;qi=0;if(mode==='random')groups.forEach(g=>{if(g.type.startsWith('vocab'))g.questions=sh(g.questions)});document.getElementById('resultPanel').classList.add('hidden');document.getElementById('statsPanel').classList.remove('hidden');document.getElementById('quizPanel').classList.remove('hidden');updateStats();render()}
+function back(){document.getElementById('setupPanel').classList.remove('hidden');document.getElementById('quizPanel').classList.add('hidden');document.getElementById('statsPanel').classList.add('hidden');document.getElementById('resultPanel').classList.add('hidden');document.getElementById('mistakePanel').classList.add('hidden')}
+
+// ===================== MISTAKE =====================
+function addMistake(q,ua,dt){if(mistakes.find(m=>m.id===q.id))return;const m={id:q.id,type:q.type,unit:q.unit,time:new Date().toLocaleString()};if(q.type==='fill'){m.q=`选词填空 Unit ${q.unit}`;m.dt=dt}else{m.q=q.q;m.u=ua;m.a=q.a||q.data||q.p}mistakes.push(m);localStorage.setItem('engM',JSON.stringify(mistakes))}
+function showMistakes(){
+const list=document.getElementById('mistakeList');
+if(!mistakes.length){list.innerHTML='<div style="text-align:center;padding:40px;color:#999">暂无错题，你太棒了！</div>'}
+else{list.innerHTML=mistakes.map(m=>{let c='';if(m.type==='fill'&&m.dt){c=m.dt.map((d,i)=>`<div style="margin:4px 0;font-size:.9em">${i+1}. 你的：${d.u||'未填'} → 正确：${d.a}</div>`).join('')}else{c=`<div class="mistake-user">你的答案：${m.u||'未作答'}</div><div class="mistake-ans">正确答案：${m.a}</div>`}return`<div class="mistake-item"><div class="mistake-q">[${typeNames[m.type]} · Unit ${m.unit}] ${m.q}</div>${c}<div class="mistake-time">${m.time}</div></div>`}).join('')}
+back();document.getElementById('mistakePanel').classList.remove('hidden');
+}
+function clearM(){if(confirm('确定清空所有错题记录吗？')){mistakes=[];localStorage.removeItem('engM');showMistakes()}}
+
+// ===================== TOAST =====================
+function toast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.classList.add('show');if(type==='success')setTimeout(()=>t.classList.remove('show'),1000)}
+
+// ===================== KEYBOARD =====================
+document.addEventListener('keydown',e=>{if(document.getElementById('quizPanel').classList.contains('hidden'))return;if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();if(e.key==='Enter'){const q=groups[gi]?.questions[qi];if(!q)return;if(answers[q.id])next();else check()}});
+
+// start
+init();
+</script>
+</body>
+</html>
