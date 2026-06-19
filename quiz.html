@@ -63,6 +63,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .word-chip{padding:6px 12px;background:#fff;border-radius:16px;border:2px solid #e8eaf6;font-size:.9em;color:#555}
 .fill-item{margin-bottom:18px;padding:16px;background:#f8f9ff;border-radius:14px;border-left:4px solid #667eea}
 .fill-sentence{font-size:1.05em;line-height:1.7;margin-bottom:10px;color:#444}
+.fill-cn{font-size:.88em;color:#999;margin-top:2px;margin-bottom:8px;line-height:1.5;font-style:italic}
 .fill-input{width:100%;padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;font-size:1em;transition:.3s}
 .fill-input:focus{outline:none;border-color:#667eea}
 .fill-input.correct{border-color:#34a853;background:#e8f5e9}
@@ -291,7 +292,7 @@ html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考�
 }else if(q.type==='fill'){
 html+=`<div class="question-title">阅读下列句子，从上方 Word Bank 中选择合适的词填入空白处。</div>`;
 html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${q.data.wb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
-q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div><input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
+q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div>${b.cn?`<div class="fill-cn">${b.cn}</div>`:''}<input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
 html+=`<div class="answer-section" id="ansSec"><div class="answer-title">提示</div><div class="answer-text">填完所有空后点击提交答案</div></div>`;
 }else if(q.type==='translate'){
 html+=`<div class="question-title">请将以下英文段落翻译成中文：</div><div class="translate-box">${q.p}</div>`;
