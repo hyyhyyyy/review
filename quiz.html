@@ -179,6 +179,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 <script src="data.js"></script>
 <script>
+// Error handler for debugging
+window.onerror=function(msg,url,line){document.body.insertAdjacentHTML('afterbegin','<div style="background:red;color:#fff;padding:10px;font-size:14px;position:fixed;top:0;left:0;z-index:99999;width:100%">JS Error: '+msg+' (line '+line+')</div>');return false};
 // ===================== STATE =====================
 let groups=[],gi=0,qi=0,answers={},mode='sequential',mistakes=JSON.parse(localStorage.getItem('engM')||'[]');
 const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','translate':'段落翻译'};

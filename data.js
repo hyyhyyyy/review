@@ -26,7 +26,7 @@ const bank = {
           {t:"_______ in the neighborhood welcome the construction of a new stadium for they believe it will bring more traffic to their stores.",a:"Business owners",h:"企业主",cn:"附近的企业主欢迎新建体育场，因为他们认为这会给他们的商店带来更多客流。"},
           {t:"Taking part in the global _______ also means contributing to climate change.",a:"economic system",h:"经济体制",cn:"参与全球经济体系也意味着对气候变化负有责任。"},
           {t:"Controlling is one of the _______, which involves measuring achievement against established objectives and goals.",a:"management functions",h:"管理职能",cn:"控制是管理职能之一，它涉及根据既定目标和指标来衡量成就。"},
-          {t:"The 'arm's-length' relationship between the government and the businesses is characteristic of the UK _______.",a:"business system",h:"商业体系",cn:"政府与企业之间的"保持距离"的关系是英国商业体系的特征。"}
+          {t:"The 'arm's-length' relationship between the government and the businesses is characteristic of the UK _______.",a:"business system",h:"商业体系",cn:"政府与企业之间的'保持距离'的关系是英国商业体系的特征。"}
         ]
       },
       {
@@ -194,7 +194,7 @@ const bank = {
         wb: ["be combined with","leverage data","build brands","in the face of","specific to","in terms of","engage with"],
         bl: [
           {t:"The company needs to take actions _______ the new challenge — dedication to advanced analytics may require changing management styles and human resources policies.",a:"in the face of",h:"面对",cn:"公司需要面对新挑战采取行动——致力于高级分析可能需要改变管理风格和人力资源政策。"},
-          {t:"Global strategists need to go beyond such traditional questions as which markets are 'closest' to them _______ institutions, level of development and culture.",a:"in terms of",h:"就……而言",cn:"全球战略家需要超越"哪些市场在制度、发展水平和文化方面与他们最接近"这类传统问题。"},
+          {t:"Global strategists need to go beyond such traditional questions as which markets are 'closest' to them _______ institutions, level of development and culture.",a:"in terms of",h:"就……而言",cn:"全球战略家需要超越'哪些市场在制度、发展水平和文化方面与他们最接近'这类传统问题。"},
           {t:"Yelp, the reviews site for local businesses, is a common place for customers to talk about their experiences, and business owners often _______ people there.",a:"engage with",h:"与……互动",cn:"Yelp是本地企业的评论网站，是顾客谈论体验的常见场所，企业主经常在那里与人们互动。"},
           {t:"By the acquisition of IBM's PC division in 2005, Lenovo Group's assets _______ a new set of capabilities so as to improve the company's advantage in international markets.",a:"were combined with",h:"与……结合",cn:"通过2005年收购IBM的个人电脑部门，联想集团的资产与一组新的能力相结合，以提升公司在国际市场上的优势。"},
           {t:"Marketing departments _______ on customer behavior and what competitors are doing.",a:"leverage data",h:"利用数据",cn:"营销部门利用有关消费者行为和竞争对手动态的数据。"},
@@ -210,7 +210,7 @@ const bank = {
           {t:"Now the biggest single shopping event in the world by a _______ margin, this year's event not only generated record-breaking revenues of $25.4 billion, but crucially enabled the brands taking part to engage with their customers in many different innovative and immersive ways. (Replace: substantial)",a:"very large",h:"substantial的日常表达",cn:"现在以非常大的优势成为世界上最大的单一购物活动，今年的活动不仅创造了254亿美元的创纪录收入，而且关键地使参与品牌能够以许多不同的创新和沉浸式方式与客户互动。"},
           {t:"Across the 24 hours of 11.11, China's _______ 300 million middle class took to their smartphones and made 1.5 billion payment transactions. (Replace: burgeoning)",a:"rapidly growing",h:"burgeoning的日常表达",cn:"在双十一的24小时内，中国快速增长的三亿中产阶级拿起智能手机，完成了15亿笔支付交易。"},
           {t:"A closer look at the success of 11.11 and the principles of New Retail that _______ it shows that there are real opportunities for all retailers to attract new customers. (Replace: underpin)",a:"support it as a basis",h:"underpin的日常表达",cn:"仔细审视双十一的成功及其作为基础支撑的新零售原则，可以发现所有零售商都有真正的机会吸引新客户。"},
-          {t:"At this year's 11.11 Global Shopping Festival around 100,000 'smart stores' helped merchants to deliver that _______ shopping service in 334 cities across China. (Replace: bespoke)",a:"tailored",h:"bespoke的日常表达",cn:"在今年的双十一全球购物节上，大约10万家"智慧门店"帮助商家在中国334个城市提供量身定制的购物服务。"},
+          {t:"At this year's 11.11 Global Shopping Festival around 100,000 'smart stores' helped merchants to deliver that _______ shopping service in 334 cities across China. (Replace: bespoke)",a:"tailored",h:"bespoke的日常表达",cn:"在今年的双十一全球购物节上，大约10万家'智慧门店'帮助商家在中国334个城市提供量身定制的购物服务。"},
           {t:"Hema has digitalised the entire store providing consumers with a 3-in-1 retail experience that _______ all modes and desires of modern urban shoppers. (Replace: encompasses)",a:"includes",h:"encompasses的日常表达",cn:"盒马对整个店铺进行了数字化改造，为消费者提供三合一的零售体验，包含了现代城市购物者的所有模式和需求。"}
         ]
       },
@@ -253,7 +253,7 @@ const bank = {
           {t:"Companies can respond to the rise of collaborative consumption by exploiting _______ and capacities.",a:"underused assets",h:"未充分利用的资产",cn:"公司可以通过利用未充分利用的资产和产能来应对协作消费的兴起。"},
           {t:"It is estimated that by 2025, five main sectors of the _______ could represent $335 billion in revenues worldwide.",a:"sharing economy",h:"共享经济",cn:"据估计，到2025年，共享经济的五个主要部门可能在全球范围内创造3350亿美元的收入。"},
           {t:"Companies need to adapt current and future _______ to provide new sources of revenues within this growing area of the economy.",a:"business models",h:"商业模式",cn:"公司需要调整当前和未来的商业模式，以在这个不断增长的经济领域中提供新的收入来源。"},
-          {t:"The company provides a(n) _______ known as 'tool fleet management' — its customers can lease individual tools when necessary.",a:"on-demand service",h:"按需服务",cn:"该公司提供一种被称为"工具车队管理"的按需服务——其客户可以在需要时租赁单个工具。"},
+          {t:"The company provides a(n) _______ known as 'tool fleet management' — its customers can lease individual tools when necessary.",a:"on-demand service",h:"按需服务",cn:"该公司提供一种被称为'工具车队管理'的按需服务——其客户可以在需要时租赁单个工具。"},
           {t:"Protection refers to government policies that give domestic producers _______ over foreign competitors, such as tariffs and subsidies.",a:"artificial advantages",h:"人为优势",cn:"保护主义是指给予国内生产者对外国竞争者人为优势的政府政策，如关税和补贴。"},
           {t:"Both regular workers and _______ constitute the main workforce of the local company.",a:"contract workers",h:"合同工",cn:"正式员工和合同工构成了这家本地公司的主要劳动力。"},
           {t:"The study briefly examines the size and characteristics of the _______ and whether low-wage workers experience wage growth.",a:"low-wage workforce",h:"低薪劳动力",cn:"该研究简要考察了低薪劳动力的规模和特征，以及低薪工人是否经历了工资增长。"}
