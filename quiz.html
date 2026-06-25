@@ -213,12 +213,6 @@ document.getElementById('clearMistakeBtn').addEventListener('click',clearM);
 document.getElementById('backToSetupBtn').addEventListener('click',back);
 }
 function sh(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function shOpt(c,u,field){
-  const all=bank[u].vocab;
-  const o=all.filter(i=>i[field]!==c);
-  const p=sh(o).slice(0,3).map(i=>i[field]);
-  return sh([...p,c]);
-}
 
 // ===================== START =====================
 function start(){
@@ -231,7 +225,7 @@ for(const u of units){
   for(const t of types){
     if(t==='vocab-en'){
       const items=unitData.vocab||[];
-      const qs=items.map((it,idx)=>({id:`ve-${u}-${idx}`,type:t,unit:u,q:`「${it.e}」的中文意思是？`,a:it.c,opts:shOpt(it.c,u,'c')}));
+      const qs=items.map((it,idx)=>({id:`ve-${u}-${idx}`,type:t,unit:u,q:`「${it.e}」的中文意思是？`,a:it.c}));
       if(qs.length)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:mode==='random'?sh(qs):qs});
     }
     if(t==='vocab-cn'){
@@ -283,9 +277,10 @@ document.getElementById('checkBtn').textContent='提交答案';
 document.getElementById('checkBtn').disabled=false;
 let html=`<div class="question-card"><div class="question-header"><span class="question-tag">${typeNames[q.type]}</span><span class="group-label">${qi+1}/${g.questions.length}</span></div>`;
 if(q.type==='vocab-en'){
-html+=`<div class="question-title">${q.q}</div><div class="options">`;
-q.opts.forEach((opt,i)=>{const k=String.fromCharCode(65+i);html+=`<div class="option" data-v="${opt}" onclick="selOpt(this)"><div class="option-key">${k}</div><div>${opt}</div></div>`});
-html+=`</div><div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
+html+=`<div class="question-title">${q.q}</div>`;
+html+=`<input type="text" class="input-answer" id="usrIn" placeholder="请输入中文意思" autocomplete="off">`;
+html+=`<div class="spell-tip" id="spTip"></div>`;
+html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
 }else if(q.type==='vocab-cn'){
 html+=`<div class="question-title">${q.q}</div>`;
 html+=`<input type="text" class="input-answer" id="usrIn" placeholder="请输入英文（注意拼写）" autocomplete="off">`;
@@ -305,39 +300,18 @@ html+=`</div>`;box.innerHTML=html;
 // restore state
 const sid=q.id;if(answers[sid]){
 const ans=answers[sid];document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
-if(q.type==='vocab-en'){document.querySelectorAll('.option').forEach(o=>{if(o.dataset.v===ans.u)o.classList.add(ans.c?'correct':'wrong');if(o.dataset.v===q.a&&!ans.c)o.classList.add('correct')})}
+if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ans.c?'正确！':`错误！你的：「${ans.u}」 正确：「${q.a}」`;tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');document.getElementById('spTip').textContent=ans.c?'拼写正确！':`拼写错误！你的：${ans.u} 正确：${q.a}`;document.getElementById('spTip').className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else if(q.type==='fill'){ans.dt.forEach((d,i)=>{const ip=document.getElementById('fi'+i);if(ip){ip.value=d.u;ip.classList.add(d.c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show')}})}
 else{const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong')}
 document.getElementById('ansSec').classList.add('show');
 }}
 
-function selOpt(el){
-const g=groups[gi],q=g.questions[qi];
-if(answers[q.id])return;
-if(q.type==='vocab-en'){
-const ua=el.dataset.v,ok=ua===q.a;
-el.classList.add('selected');
-if(ok){el.classList.add('correct');toast('正确！','success');}
-else{el.classList.add('wrong');document.querySelectorAll('.option').forEach(o=>{if(o.dataset.v===q.a)o.classList.add('correct')});}
-answers[q.id]={u:ua,c:ok};
-document.getElementById('ansSec').classList.add('show');
-document.getElementById('checkBtn').textContent='已作答';
-document.getElementById('checkBtn').disabled=true;
-if(!ok)addMistake(q,ua,null);
-updateStats();
-if(ok)setTimeout(next,800);
-}else{
-document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
-el.classList.add('selected');
-}
-}
-
 // ===================== CHECK =====================
 function check(){
 const g=groups[gi],q=g.questions[qi];if(answers[q.id])return;
 let ok=false,ua='',dt=[];
-if(q.type==='vocab-en'){const s=document.querySelector('.option.selected');if(!s){toast('请选择一个选项','error');return}ua=s.dataset.v;ok=ua===q.a;if(ok)s.classList.add('correct');else{s.classList.add('wrong');document.querySelectorAll('.option').forEach(o=>{if(o.dataset.v===q.a)o.classList.add('correct')})}}
+if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=cnCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'正确！':`错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
 else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=spCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'拼写正确！':`拼写错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
 else if(q.type==='fill'){const ips=document.querySelectorAll('.fill-input');let allOk=true;ips.forEach((ip,i)=>{const v=ip.value.trim();const a=ip.dataset.a;const c=spCheck(v,a);if(!c)allOk=false;ip.classList.add(c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show');dt.push({u:v,c:c,a:a})});ok=allOk;ua=dt.map(d=>d.u).join(' | ')}
 else if(q.type==='translate'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(ua.length<10){toast('翻译内容太短，请认真作答','error');return}ok=trCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong')}
@@ -350,6 +324,7 @@ if(ok)setTimeout(next,1200);
 }
 
 function spCheck(u,a){const x=u.toLowerCase().trim().replace(/[.,;:!?]/g,'');const y=a.toLowerCase().trim().replace(/[.,;:!?]/g,'');if(!x||!y)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;if(x+'s'===y||y+'s'===x||x+'es'===y||y+'es'===x)return true;return false}
+function cnCheck(u,a){const x=u.replace(/[，。！？、；：\s]/g,'');const y=a.replace(/[，。！？、；：\s;]/g,'');if(!x)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;const kw=y.split(/[；;、]/);if(kw.length>1){let m=0;for(const k of kw)if(x.includes(k))m++;if(m>=kw.length*0.5)return true}return false}
 function trCheck(u,a){if(u.length<a.length*0.3)return false;const uw=u.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());const aw=a.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());let m=0;for(const c of aw)if(u.includes(c))m++;return m>=aw.length*0.25}
 
 function next(){const g=groups[gi];qi++;if(qi>=g.questions.length){nextGroup();return}render();updateStats()}
