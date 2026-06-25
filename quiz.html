@@ -115,6 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="checkbox-item" data-value="vocab-en" data-group="type"><span class="check-icon">✓</span>词汇英译中</div>
 <div class="checkbox-item" data-value="vocab-cn" data-group="type"><span class="check-icon">✓</span>词汇中译英</div>
 <div class="checkbox-item" data-value="fill" data-group="type"><span class="check-icon">✓</span>选词填空</div>
+<div class="checkbox-item" data-value="fill-mem" data-group="type"><span class="check-icon">✓</span>选词填空·记忆版</div>
 <div class="checkbox-item" data-value="translate" data-group="type"><span class="check-icon">✓</span>段落翻译</div>
 </div>
 <div class="section-title">出题模式</div>
@@ -183,7 +184,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 window.onerror=function(msg,url,line){document.body.insertAdjacentHTML('afterbegin','<div style="background:red;color:#fff;padding:10px;font-size:14px;position:fixed;top:0;left:0;z-index:99999;width:100%">JS Error: '+msg+' (line '+line+')</div>');return false};
 // ===================== STATE =====================
 let groups=[],gi=0,qi=0,answers={},mode='sequential',mistakes=JSON.parse(localStorage.getItem('engM')||'[]');
-const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','translate':'段落翻译'};
+const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-mem':'选词填空·记忆版','translate':'段落翻译'};
 
 // ===================== INIT =====================
 function init(){
@@ -244,6 +245,18 @@ for(const u of units){
         });
       });
     }
+    if(t==='fill-mem'){
+      const sets=unitData.fill||[];
+      sets.forEach((set,setIdx)=>{
+        if(!set.bl||!set.bl.length)return;
+        const memSet={...set,bl:set.bl.map(b=>({...b,t:b.tm||b.t}))};
+        groups.push({
+          unit:u,type:'fill',
+          name:`Unit ${u} · ${typeNames[t]} · ${set.title||'练习'+(setIdx+1)}`,
+          questions:[{id:`fm-${u}-${setIdx}`,type:'fill',unit:u,data:memSet}]
+        });
+      });
+    }
     if(t==='translate'){
       const tr=unitData.trans;
       if(tr&&tr.e)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:[{id:`t-${u}`,type:t,unit:u,p:tr.e,a:tr.c}]});
@@ -288,7 +301,8 @@ html+=`<div class="spell-tip" id="spTip"></div>`;
 html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
 }else if(q.type==='fill'){
 html+=`<div class="question-title">阅读下列句子，从上方 Word Bank 中选择合适的词填入空白处。</div>`;
-html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${q.data.wb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
+const shuffledWb=sh(q.data.wb);
+html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${shuffledWb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
 q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div>${b.cn?`<div class="fill-cn">${b.cn}</div>`:''}<input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
 html+=`<div class="answer-section" id="ansSec"><div class="answer-title">提示</div><div class="answer-text">填完所有空后点击提交答案</div></div>`;
 }else if(q.type==='translate'){
@@ -323,7 +337,43 @@ updateStats();
 if(ok)setTimeout(next,1200);
 }
 
-function spCheck(u,a){const x=u.toLowerCase().trim().replace(/[.,;:!?]/g,'');const y=a.toLowerCase().trim().replace(/[.,;:!?]/g,'');if(!x||!y)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;if(x+'s'===y||y+'s'===x||x+'es'===y||y+'es'===x)return true;return false}
+function spCheck(u,a){
+  function norm(s){
+    s=s.toLowerCase().trim();
+    // normalize abbreviations
+    s=s.replace(/\bsth\b/g,'something').replace(/\bsb\b/g,'someone');
+    // normalize be-verbs
+    s=s.replace(/\b(was|were|are|is|am|been|being)\b/g,'be');
+    // normalize common irregular past/participle to base form
+    s=s.replace(/\b(made)\b/g,'make').replace(/\b(took)\b/g,'take').replace(/\b(caught)\b/g,'catch').replace(/\b(went)\b/g,'go');
+    // normalize -ed/-ing/-s to base (simple regex: strip common inflections)
+    s=s.replace(/(\w{3,})eds?\b/g,'$1e').replace(/(\w{3,})ing\b/g,'$1').replace(/(\w{3,})es\b/g,'$1e').replace(/(\w{3,})s\b/g,'$1');
+    // normalize possessives
+    s=s.replace(/\b(one's|their|his|her|its|our|my|your)\b/g,"one's");
+    // strip punctuation & ellipsis content
+    s=s.replace(/[.,;:!?'"]/g,'');
+    // remove numbers
+    s=s.replace(/\b\d[\d,.]*\b/g,'');
+    s=s.replace(/\s+/g,' ').trim();
+    return s;
+  }
+  const x=norm(u),y=norm(a);
+  if(!x||!y)return false;
+  if(x===y)return true;
+  // inclusion check
+  if(x.includes(y)||y.includes(x))return true;
+  // check if all content words in y appear in x (for collocation variants)
+  const xW=x.split(/\s+/).filter(w=>w.length>2), yW=y.split(/\s+/).filter(w=>w.length>2);
+  if(yW.length>1){
+    let m=0;for(const w of yW)if(xW.some(xw=>xw===w||xw.startsWith(w)||w.startsWith(xw)))m++;
+    if(m>=yW.length*0.6)return true;
+  }
+  if(xW.length>1){
+    let m=0;for(const w of xW)if(yW.some(yw=>yw===w||yw.startsWith(w)||w.startsWith(yw)))m++;
+    if(m>=xW.length*0.6)return true;
+  }
+  return false;
+}
 function cnCheck(u,a){const x=u.replace(/[，。！？、；：\s]/g,'');const y=a.replace(/[，。！？、；：\s;]/g,'');if(!x)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;const kw=y.split(/[；;、]/);if(kw.length>1){let m=0;for(const k of kw)if(x.includes(k))m++;if(m>=kw.length*0.5)return true}return false}
 function trCheck(u,a){if(u.length<a.length*0.3)return false;const uw=u.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());const aw=a.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());let m=0;for(const c of aw)if(u.includes(c))m++;return m>=aw.length*0.25}
 
