@@ -115,6 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="checkbox-item" data-value="vocab-en" data-group="type"><span class="check-icon">✓</span>词汇英译中</div>
 <div class="checkbox-item" data-value="vocab-cn" data-group="type"><span class="check-icon">✓</span>词汇中译英</div>
 <div class="checkbox-item" data-value="fill" data-group="type"><span class="check-icon">✓</span>选词填空</div>
+<div class="checkbox-item" data-value="fill-notrans" data-group="type"><span class="check-icon">✓</span>选词填空·无翻译</div>
 <div class="checkbox-item" data-value="fill-mem" data-group="type"><span class="check-icon">✓</span>选词填空·记忆版</div>
 <div class="checkbox-item" data-value="fill-mem-cho" data-group="type"><span class="check-icon">✓</span>选词填空·记忆选择</div>
 <div class="checkbox-item" data-value="translate" data-group="type"><span class="check-icon">✓</span>段落翻译</div>
@@ -185,7 +186,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 window.onerror=function(msg,url,line){document.body.insertAdjacentHTML('afterbegin','<div style="background:red;color:#fff;padding:10px;font-size:14px;position:fixed;top:0;left:0;z-index:99999;width:100%">JS Error: '+msg+' (line '+line+')</div>');return false};
 // ===================== STATE =====================
 let groups=[],gi=0,qi=0,answers={},mode='sequential',mistakes=JSON.parse(localStorage.getItem('engM')||'[]');
-const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-mem':'选词填空·记忆版','fill-mem-cho':'选词填空·记忆选择','translate':'段落翻译'};
+const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-notrans':'选词填空·无翻译','fill-mem':'选词填空·记忆版','fill-mem-cho':'选词填空·记忆选择','translate':'段落翻译'};
 
 // ===================== INIT =====================
 function init(){
@@ -236,14 +237,14 @@ for(const u of units){
       const qs=items.map((it,idx)=>({id:`vc-${u}-${idx}`,type:t,unit:u,q:`「${it.c}」的英文表达是？`,a:it.e}));
       if(qs.length)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:mode==='random'?sh(qs):qs});
     }
-    if(t==='fill'){
+    if(t==='fill'||t==='fill-notrans'){
       const sets=unitData.fill||[];
       sets.forEach((set,setIdx)=>{
         if(!set.bl||!set.bl.length)return;
         groups.push({
           unit:u,type:t,
           name:`Unit ${u} · ${typeNames[t]} · ${set.title||'练习'+(setIdx+1)}`,
-          questions:[{id:`f-${u}-${setIdx}`,type:t,unit:u,data:set}]
+          questions:[{id:`${t==='fill-notrans'?'fn':'f'}-${u}-${setIdx}`,type:t,unit:u,data:set}]
         });
       });
     }
@@ -321,11 +322,12 @@ html+=`<div class="question-title">${q.q}</div>`;
 html+=`<input type="text" class="input-answer" id="usrIn" placeholder="请输入英文（注意拼写）" autocomplete="off">`;
 html+=`<div class="spell-tip" id="spTip"></div>`;
 html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
-}else if(q.type==='fill'){
+}else if(q.type==='fill'||q.type==='fill-notrans'){
 html+=`<div class="question-title">阅读下列句子，从上方 Word Bank 中选择合适的词填入空白处。</div>`;
 const shuffledWb=sh(q.data.wb);
 html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${shuffledWb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
-q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div>${b.cn?`<div class="fill-cn">${b.cn}</div>`:''}<input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
+const showCn=q.type==='fill';
+q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div>${showCn&&b.cn?`<div class="fill-cn">${b.cn}</div>`:''}<input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
 html+=`<div class="answer-section" id="ansSec"><div class="answer-title">提示</div><div class="answer-text">填完所有空后点击提交答案</div></div>`;
 }else if(q.type==='fill-mem-cho'){
 html+=`<div class="question-title">${q.q}</div>`;
@@ -347,7 +349,7 @@ const sid=q.id;if(answers[sid]){
 const ans=answers[sid];document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
 if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ans.c?'正确！':`错误！你的：「${ans.u}」 正确：「${q.a}」`;tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');document.getElementById('spTip').textContent=ans.c?'拼写正确！':`拼写错误！你的：${ans.u} 正确：${q.a}`;document.getElementById('spTip').className='spell-tip '+(ans.c?'ok':'err')+' show'}
-else if(q.type==='fill'){ans.dt.forEach((d,i)=>{const ip=document.getElementById('fi'+i);if(ip){ip.value=d.u;ip.classList.add(d.c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show')}})}
+else if(q.type==='fill'||q.type==='fill-notrans'){ans.dt.forEach((d,i)=>{const ip=document.getElementById('fi'+i);if(ip){ip.value=d.u;ip.classList.add(d.c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show')}})}
 else if(q.type==='fill-mem-cho'){const opts=document.querySelectorAll('#optGroup .option');opts.forEach(o=>{o.classList.remove('selected');if(o.dataset.val===ans.u){o.classList.add('selected');o.classList.add(ans.c?'correct':'wrong')}else if(!ans.c&&o.dataset.val===q.a){o.classList.add('correct')}});const tip=document.getElementById('spTip');tip.textContent=ans.c?'正确！':`错误！你选了「${ans.u}」 正确：「${q.a}」`;tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else{const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong')}
 document.getElementById('ansSec').classList.add('show');
@@ -359,7 +361,7 @@ const g=groups[gi],q=g.questions[qi];if(answers[q.id])return;
 let ok=false,ua='',dt=[];
 if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=cnCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'正确！':`错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
 else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=spCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'拼写正确！':`拼写错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
-else if(q.type==='fill'){const ips=document.querySelectorAll('.fill-input');let allOk=true;ips.forEach((ip,i)=>{const v=ip.value.trim();const a=ip.dataset.a;const c=spCheck(v,a);if(!c)allOk=false;ip.classList.add(c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show');dt.push({u:v,c:c,a:a})});ok=allOk;ua=dt.map(d=>d.u).join(' | ')}
+else if(q.type==='fill'||q.type==='fill-notrans'){const ips=document.querySelectorAll('.fill-input');let allOk=true;ips.forEach((ip,i)=>{const v=ip.value.trim();const a=ip.dataset.a;const c=spCheck(v,a);if(!c)allOk=false;ip.classList.add(c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show');dt.push({u:v,c:c,a:a})});ok=allOk;ua=dt.map(d=>d.u).join(' | ')}
 else if(q.type==='fill-mem-cho'){const sel=document.querySelector('#optGroup .option.selected');if(!sel){toast('请选择一个答案！','error');return}ua=sel.dataset.val;ok=ua.toLowerCase()===q.a.toLowerCase();sel.classList.remove('selected');sel.classList.add(ok?'correct':'wrong');if(!ok){document.querySelectorAll('#optGroup .option').forEach(o=>{if(o.dataset.val===q.a)o.classList.add('correct')})}const tip=document.getElementById('spTip');tip.textContent=ok?'正确！':`错误！你选了「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
 else if(q.type==='translate'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(ua.length<10){toast('翻译内容太短，请认真作答','error');return}ok=trCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong')}
 answers[q.id]={u:ua,c:ok,dt:dt.length?dt:null};
@@ -443,7 +445,7 @@ function restart(){answers={};gi=0;qi=0;if(mode==='random')groups.forEach(g=>{if
 function back(){document.getElementById('setupPanel').classList.remove('hidden');document.getElementById('quizPanel').classList.add('hidden');document.getElementById('statsPanel').classList.add('hidden');document.getElementById('resultPanel').classList.add('hidden');document.getElementById('mistakePanel').classList.add('hidden')}
 
 // ===================== MISTAKE =====================
-function addMistake(q,ua,dt){if(mistakes.find(m=>m.id===q.id))return;const m={id:q.id,type:q.type,unit:q.unit,time:new Date().toLocaleString()};if(q.type==='fill'){m.q=`选词填空 Unit ${q.unit}`;m.dt=dt}else{m.q=q.q;m.u=ua;m.a=q.a||q.data||q.p}mistakes.push(m);localStorage.setItem('engM',JSON.stringify(mistakes))}
+function addMistake(q,ua,dt){if(mistakes.find(m=>m.id===q.id))return;const m={id:q.id,type:q.type,unit:q.unit,time:new Date().toLocaleString()};if(q.type==='fill'||q.type==='fill-notrans'){m.q=`选词填空 Unit ${q.unit}`;m.dt=dt}else{m.q=q.q;m.u=ua;m.a=q.a||q.data||q.p}mistakes.push(m);localStorage.setItem('engM',JSON.stringify(mistakes))}
 function showMistakes(){
 const list=document.getElementById('mistakeList');
 if(!mistakes.length){list.innerHTML='<div style="text-align:center;padding:40px;color:#999">暂无错题，你太棒了！</div>'}
