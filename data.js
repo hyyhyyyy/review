@@ -96,9 +96,9 @@ const bank = {
         wb: ["business philosophy","target market","Strategic decisions","established brand","sales promotion","event marketing"],
         bl: [
           {t:"Any company can sell Product X or provide Service Y, but what differentiates you from everyone else in your field is your _______.",a:"business philosophy",h:"经营理念",tm:"is your _______",cn:"任何公司都可以销售产品X或提供服务Y，但让你在同行中脱颖而出的是你的经营理念。"},
-          {t:"A(n) _______ is the market a company wants to sell its products and services to, and it includes a target set of customers for whom it directs its marketing efforts.",a:"target market",h:"目标市场",tm:"A(n) _______ is the",cn:"目标市场是公司想要销售其产品和服务的市场，它包括公司营销努力所针对的目标客户群。"},
+          {t:"A(n) _______ is the market a company wants to sell its products and services to, and it includes a target set of customers for whom it directs its marketing efforts.",a:"target market",h:"目标市场",tm:"A _______ is the (目标市场)",cn:"目标市场是公司想要销售其产品和服务的市场，它包括公司营销努力所针对的目标客户群。"},
           {t:"_______ consider the entire organization and represent a complex aspect of business planning.",a:"Strategic decisions",h:"战略决策",tm:"_______ consider the entire (战略决策)",cn:"战略决策考虑整个组织，代表了商业规划中一个复杂的方面。"},
-          {t:"Brand extension is the use of a(n) _______ name in new product categories.",a:"established brand",h:"知名品牌",tm:"a(n) _______ name",cn:"品牌延伸是指将知名品牌名称用于新的产品类别。"},
+          {t:"Brand extension is the use of a(n) _______ name in new product categories.",a:"established brand",h:"知名品牌",tm:"an _______ name (知名品牌)",cn:"品牌延伸是指将知名品牌名称用于新的产品类别。"},
           {t:"Good weather and _______ in stores drove consumers into malls in May as the summer shopping season began.",a:"sales promotion",h:"促销",tm:"and _______ in stores",cn:"随着夏季购物季的开始，好天气和店内促销推动了五月份消费者前往购物中心。"},
           {t:"The activity of designing or developing a themed activity to promote a product is called _______.",a:"event marketing",h:"事件营销",tm:"is called _______",cn:"设计或开发主题活动以推广产品的行为称为事件营销。"}
         ]
@@ -225,7 +225,7 @@ const bank = {
           {t:"As regards supermarket pricing strategies, the rich _______ everyday low pricing.",a:"favor promotional pricing over",h:"比起……更喜欢……",tm:"_______ over (比起…更喜欢)",cn:"关于超市定价策略，富人比起每日低价更喜欢促销定价。"},
           {t:"Settlement with the polluting coke plant offers complex resolution to simple demand, that is, to fix it or _______.",a:"shut it down",h:"关闭",tm:"fix it or _______ (关闭)",cn:"与污染焦化厂的和解为简单要求提供了复杂的解决方案，即修复它或关闭它。"},
           {t:"In this article, the suggestions _______ successful cases in the business world.",a:"are interspersed with",h:"点缀；散布",tm:"_______ with (点缀；散布)",cn:"在这篇文章中，建议与商业世界的成功案例散布其中。"},
-          {t:"The question under what circumstances companies should involve customers in pricing decisions has _______.",a:"caught the manager's eye",h:"引起经理的注意",tm:"_______ a difference (产生影响)",cn:"公司在什么情况下应该让客户参与定价决策的问题已经引起了经理的注意。"}
+          {t:"The question under what circumstances companies should involve customers in pricing decisions has _______.",a:"caught the manager's eye",h:"引起经理的注意",tm:"has _______ (引起注意)",cn:"公司在什么情况下应该让客户参与定价决策的问题已经引起了经理的注意。"}
         ]
       }
     ],
@@ -253,7 +253,7 @@ const bank = {
           {t:"Companies can respond to the rise of collaborative consumption by exploiting _______ and capacities.",a:"underused assets",h:"未充分利用的资产",cn:"公司可以通过利用未充分利用的资产和产能来应对协作消费的兴起。",tm:"exploiting _______ and capacities (未充分利用的资产)"},
           {t:"It is estimated that by 2025, five main sectors of the _______ could represent $335 billion in revenues worldwide.",a:"sharing economy",h:"共享经济",cn:"据估计，到2025年，共享经济的五个主要部门可能在全球范围内创造3350亿美元的收入。",tm:"sectors of the _______ could (共享经济)"},
           {t:"Companies need to adapt current and future _______ to provide new sources of revenues within this growing area of the economy.",a:"business models",h:"商业模式",cn:"公司需要调整当前和未来的商业模式，以在这个不断增长的经济领域中提供新的收入来源。",tm:"future _______ to provide (商业模式)"},
-          {t:"The company provides a(n) _______ known as 'tool fleet management' — its customers can lease individual tools when necessary.",a:"on-demand service",h:"按需服务",cn:"该公司提供一种被称为'工具车队管理'的按需服务——其客户可以在需要时租赁单个工具。",tm:"a(n) _______ known as (按需服务)"},
+          {t:"The company provides a(n) _______ known as 'tool fleet management' — its customers can lease individual tools when necessary.",a:"on-demand service",h:"按需服务",cn:"该公司提供一种被称为'工具车队管理'的按需服务——其客户可以在需要时租赁单个工具。",tm:"an _______ known as (按需服务)"},
           {t:"Protection refers to government policies that give domestic producers _______ over foreign competitors, such as tariffs and subsidies.",a:"artificial advantages",h:"人为优势",cn:"保护主义是指给予国内生产者对外国竞争者人为优势的政府政策，如关税和补贴。",tm:"producers _______ over foreign (人为优势)"},
           {t:"Both regular workers and _______ constitute the main workforce of the local company.",a:"contract workers",h:"合同工",cn:"正式员工和合同工构成了这家本地公司的主要劳动力。",tm:"workers and _______ constitute (合同工)"},
           {t:"The study briefly examines the size and characteristics of the _______ and whether low-wage workers experience wage growth.",a:"low-wage workforce",h:"低薪劳动力",cn:"该研究简要考察了低薪劳动力的规模和特征，以及低薪工人是否经历了工资增长。",tm:"of the _______ and whether (低薪劳动力)"}
@@ -270,9 +270,9 @@ const bank = {
           {t:"People _______ to a consumer story about a brand felt higher levels of connection to and trust in the brand.",a:"exposed",h:"接触",cn:"接触到品牌消费者故事的人对该品牌的联系感和信任度更高。",tm:"People _______ to a (暴露的)"},
           {t:"He says the company is confident that its financial reporting meets all _______ and accounting requirements.",a:"legal",h:"法律的",cn:"他说公司确信其财务报告满足所有法律和会计要求。",tm:"all _______ and accounting (法律的)"},
           {t:"We observed the _______ of the sharing economy and the emergence of new business models in collaborative consumption over the last two years.",a:"evolution",h:"演变",cn:"在过去两年中，我们观察到了共享经济的演变以及协作消费中新商业模式的出现。",tm:"the _______ of (evolution → 逐渐发展)"},
-          {t:"It is necessary to update your portfolio chart on a(n) _______ basis.",a:"periodic",h:"定期的",cn:"有必要定期更新你的投资组合图表。",tm:"a(n) _______ basis (定期的)"},
-          {t:"As a(n) _______ worker, John collected an hourly wage and no benefits and could be let go at any time.",a:"contract",h:"合同的",cn:"作为一名合同工，约翰领取时薪，没有福利，随时可能被解雇。",tm:"a(n) _______ worker (合同的)"},
-          {t:"A(n) _______ reputation cannot necessarily lead to a good financial performance of a company.",a:"undiminished",h:"不减的；持续的",cn:"持续的声誉不一定能带来公司良好的财务表现。",tm:"A(n) _______ reputation (未减弱的)"}
+          {t:"It is necessary to update your portfolio chart on a(n) _______ basis.",a:"periodic",h:"定期的",cn:"有必要定期更新你的投资组合图表。",tm:"a _______ basis (定期的)"},
+          {t:"As a(n) _______ worker, John collected an hourly wage and no benefits and could be let go at any time.",a:"contract",h:"合同的",cn:"作为一名合同工，约翰领取时薪，没有福利，随时可能被解雇。",tm:"a _______ worker (合同的)"},
+          {t:"A(n) _______ reputation cannot necessarily lead to a good financial performance of a company.",a:"undiminished",h:"不减的；持续的",cn:"持续的声誉不一定能带来公司良好的财务表现。",tm:"An _______ reputation (未减弱的)"}
         ]
       },
       {
@@ -354,10 +354,10 @@ const bank = {
           {t:"If you think that these _______ problems can be solved by building more roads, you completely misunderstand the nature of these problems.",a:"transport",h:"运输",cn:"如果你认为这些运输问题可以通过修建更多道路来解决，你完全误解了这些问题的本质。",tm:"these _______ problems (运输)"},
           {t:"The study _______ the idea that the potential of the digitalized world would encourage relationship building.",a:"reinforced",h:"强化",cn:"该研究强化了数字化世界的潜力将鼓励关系建立的观点。",tm:"study _______ the idea (强化)"},
           {t:"The impact of rising steel prices on agriculture illustrates the unintended and unpredictable _______ of aggressive protectionism in a global economy.",a:"consequences",h:"后果",cn:"钢铁价格上涨对农业的影响说明了在全球经济中激进保护主义带来的意想不到和不可预测的后果。",tm:"unpredictable _______ of aggressive (后果)"},
-          {t:"Information technology advances have become a(n) _______ element of 21st-century consumer experiences.",a:"integral",h:"必不可少的",cn:"信息技术进步已成为21世纪消费者体验中必不可少的元素。",tm:"a(n) _______ element (不可或缺的)"},
+          {t:"Information technology advances have become a(n) _______ element of 21st-century consumer experiences.",a:"integral",h:"必不可少的",cn:"信息技术进步已成为21世纪消费者体验中必不可少的元素。",tm:"an _______ element (不可或缺的)"},
           {t:"The individual can be considered as the smallest service system, while nations and global economy are examples of _______ ones.",a:"enormous",h:"巨大的",cn:"个人可以被认为是最小的服务系统，而国家和全球经济则是巨大系统的例子。",tm:"of _______ ones (巨大的)"},
           {t:"The inappropriate corporate strategies led to the company's loss of its market _______.",a:"dominance",h:"主导地位",cn:"不恰当的企业战略导致了公司失去了市场主导地位。",tm:"market _______ led to (主导地位)"},
-          {t:"Wal-Mart says it is doubling the number of seasonal employees _______ to fulfilling online orders.",a:"devoted",h:"致力于",cn:"沃尔玛表示正在将致力于完成在线订单的临时员工数量翻倍。",tm:"employees _______ to fulfilling (投入的)"}
+          {t:"Wal-Mart says it is doubling the number of seasonal employees _______ to fulfilling online orders.",a:"devoted",h:"致力于",cn:"沃尔玛表示正在将致力于完成在线订单的临时员工数量翻倍。",tm:"employees _______ to fulfilling (致力于)"}
         ]
       },
       {
@@ -394,7 +394,7 @@ const bank = {
           {t:"Suppliers of supermarkets are charged fees to _______ prime shelf space.",a:"access",h:"使用；进入",cn:"超市的供应商被收取费用以使用优质货架空间。",tm:"fees to _______ prime shelf (接近)"},
           {t:"Amazon is _______ experimenting to shorten delivery times and reduce costs.",a:"constantly",h:"不断地",cn:"亚马逊在不断地进行实验，以缩短交付时间并降低成本。",tm:"is _______ experimenting (不断地)"},
           {t:"Taking advantage of AI opportunities requires organizational _______ to overcoming the inevitable difficulties that accompany many AI initiatives.",a:"commitment",h:"承诺；投入",cn:"利用AI机会需要组织承诺克服伴随许多AI项目而来的不可避免的困难。",tm:"organizational _______ to overcoming (承诺)"},
-          {t:"Apple depends on China for a(n) _______ amount of its sales, as well as its manufacturing.",a:"significant",h:"重大的；显著的",cn:"苹果在中国有相当大的一部分销售额，以及其制造业。",tm:"a(n) _______ amount (显著的)"},
+          {t:"Apple depends on China for a(n) _______ amount of its sales, as well as its manufacturing.",a:"significant",h:"重大的；显著的",cn:"苹果在中国有相当大的一部分销售额，以及其制造业。",tm:"a _______ amount (显著的)"},
           {t:"When business activities, relationships, technology and regulation are _______, it is hard to make incremental changes to the system.",a:"complementary",h:"互补的",cn:"当商业活动、关系、技术和法规互补时，很难对系统进行渐进式变革。",tm:"regulation are _______, it is hard (互补的)"},
           {t:"Well-designed _______ can help decentralize management and motivate employees to take the initiative.",a:"incentives",h:"激励",cn:"设计良好的激励措施可以帮助分权管理并激励员工主动行动。",tm:"Well-designed _______ can help (激励措施)"},
           {t:"This study has _______ the effect of management consultancy on innovation by using a large data set drawn from emerging economies.",a:"demonstrated",h:"证明；展示",cn:"本研究通过使用来自新兴经济体的大数据集，证明了管理咨询对创新的影响。",tm:"has _______ the effect (证明)"},
