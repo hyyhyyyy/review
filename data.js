@@ -63,14 +63,14 @@ const bank = {
         title: "Task 3 / Collocations / Exercise 1",
         wb: ["range from ... to ...","adapt to","a wide array of","rely on","in the face of adversity","bring sth. to the table","turn one's dream into a reality","make a difference"],
         bl: [
-          {t:"Nordstrom, like other department stores, is trying to change itself in reaction to changing customer behavior. _______",a:"adapt to",h:"适应",cn:"诺德斯特龙和其他百货商店一样，正试图根据顾客行为的变化来改变自己，以适应变化。",tm:"_______ change (适应)"},
-          {t:"General Motors and other automakers lean upon parts and materials from overseas to build their cars. _______",a:"rely on",h:"依赖",cn:"通用汽车和其他汽车制造商依赖海外的零部件和材料来制造汽车。",tm:"_______ on = lean upon (依赖)"},
-          {t:"It's a passionate story that will inspire entrepreneurs and everyone else to be brave in difficult events. _______",a:"in the face of adversity",h:"面对逆境",cn:"这是一个充满激情的故事，将激励企业家和其他人在面对逆境时勇敢前行。",tm:"in the face _______ adversity (面对逆境)"},
-          {t:"The company's revenue estimates for the current quarter vary between $8 billion and $8.4 billion. _______",a:"range from $8 billion to $8.4 billion",h:"从……到……不等",cn:"该公司本季度的收入估计在80亿到84亿美元之间。",tm:"_______ from $8B to $8.4B (从…到…不等)"},
-          {t:"These women are starting businesses together, hiring one another, encouraging each other to quit their corporate jobs to realize their dreams. _______",a:"turn their dreams into a reality",h:"将梦想变成现实",cn:"这些女性一起创业，互相雇佣，鼓励彼此辞去公司工作以将梦想变成现实。",tm:"turn dreams _______ a reality (把梦想变成现实)"},
-          {t:"Like Amazon, Flipkart initially started selling books online before expanding into a great variety of products. _______",a:"a wide array of",h:"各种各样的",cn:"像亚马逊一样，Flipkart最初在网上销售书籍，后来扩展到各种各样的产品。",tm:"a _______ of products (各种各样的)"},
-          {t:"The professor encouraged his students to work hard so that they can provide something beneficial when they apply for a job. _______",a:"bring something to the table",h:"带来有价值的东西",cn:"教授鼓励学生努力学习，以便在求职时能带来有价值的东西。",tm:"bring _______ to the table (带来有价值的东西)"},
-          {t:"How 12 months has brought great changes to the US economy! The housing market is expanding, and businesses are shedding their reluctance to hire and invest. _______",a:"made a difference",h:"产生影响",cn:"12个月来对美国经济产生了巨大的影响！房地产市场正在扩张，企业也不再犹豫于招聘和投资。",tm:"_______ a difference (产生影响)"}
+          {t:"Nordstrom, like other department stores, is trying to _______ changing customer behavior.",a:"adapt to",h:"适应",cn:"诺德斯特龙和其他百货商店一样，正试图根据顾客行为的变化来改变自己，以适应变化。",tm:"_______ change (适应)"},
+          {t:"General Motors and other automakers _______ parts and materials from overseas to build their cars.",a:"rely on",h:"依赖",cn:"通用汽车和其他汽车制造商依赖海外的零部件和材料来制造汽车。",tm:"_______ on = lean upon (依赖)"},
+          {t:"It's a passionate story that will inspire entrepreneurs and everyone else to be brave _______.",a:"in the face of adversity",h:"面对逆境",cn:"这是一个充满激情的故事，将激励企业家和其他人在面对逆境时勇敢前行。",tm:"in the face _______ adversity (面对逆境)"},
+          {t:"The company's revenue estimates for the current quarter _______ $8 billion to $8.4 billion.",a:"range from $8 billion to $8.4 billion",h:"从……到……不等",cn:"该公司本季度的收入估计在80亿到84亿美元之间。",tm:"_______ from $8B to $8.4B (从…到…不等)"},
+          {t:"These women are starting businesses together, hiring one another, encouraging each other to quit their corporate jobs to _______.",a:"turn their dreams into a reality",h:"将梦想变成现实",cn:"这些女性一起创业，互相雇佣，鼓励彼此辞去公司工作以将梦想变成现实。",tm:"turn dreams _______ a reality (把梦想变成现实)"},
+          {t:"Like Amazon, Flipkart initially started selling books online before expanding into _______ products.",a:"a wide array of",h:"各种各样的",cn:"像亚马逊一样，Flipkart最初在网上销售书籍，后来扩展到各种各样的产品。",tm:"a _______ of products (各种各样的)"},
+          {t:"The professor encouraged his students to work hard so that they can _______ when they apply for a job.",a:"bring something to the table",h:"带来有价值的东西",cn:"教授鼓励学生努力学习，以便在求职时能带来有价值的东西。",tm:"bring _______ to the table (带来有价值的东西)"},
+          {t:"How 12 months has _______ to the US economy! The housing market is expanding, and businesses are shedding their reluctance to hire and invest.",a:"made a difference",h:"产生影响",cn:"12个月来对美国经济产生了巨大的影响！房地产市场正在扩张，企业也不再犹豫于招聘和投资。",tm:"_______ a difference (产生影响)"}
         ]
       }
     ],
