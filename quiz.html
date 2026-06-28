@@ -339,7 +339,7 @@ html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考�
   });
   html+=`</div>`;
   html+=`<input type="hidden" id="fcSel" value="">`;
-  html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}${q.h?' ('+q.h+')':''}</div></div>`;
+  html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}${q.h?' ('+q.h+')':''}</div>${q.cn?`<div style="margin-top:8px;color:#555;font-size:.95em">整句释义：${q.cn}</div>`:''}</div>`;
 }else if(q.type==='translate'){
   html+=`<div class="translate-box">${q.p}</div>`;
   html+=`<textarea class="input-answer" id="usrIn" rows="6" placeholder="请输入中文翻译" autocomplete="off" style="resize:vertical;min-height:120px"></textarea>`;
