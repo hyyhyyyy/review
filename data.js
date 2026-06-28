@@ -24,7 +24,7 @@ const bank = {
           {t:"Under the plan, foreign and domestic investors can buy minority stakes in sectors that were previously deemed off limits to _______.",a:"private enterprises",h:"私营企业",cn:"根据该计划，外国和国内投资者可以购买以前被视为私营企业禁区行业的少数股权。",tm:"off limits to _______"},
           {t:"Companies are required to purchase insurance for employees against _______ injuries.",a:"workplace",h:"工作场所",cn:"公司被要求为员工购买工伤保险以防范工作场所的伤害。",tm:"against _______ injuries"},
           {t:"_______ in the neighborhood welcome the construction of a new stadium for they believe it will bring more traffic to their stores.",a:"Business owners",h:"企业主",cn:"附近的企业主欢迎新建体育场，因为他们认为这会给他们的商店带来更多客流。",tm:"_______ in the neighborhood"},
-          {t:"Taking part in the global _______ also means contributing to climate change.",a:"economic system",h:"经济体制",cn:"参与全球经济体系也意味着对气候变化负有责任。",tm:"the global _______, also (经济体制)"},
+          {t:"Taking part in the global _______ also means contributing to climate change.",a:"economic system",h:"经济体制",cn:"参与全球经济体系也意味着对气候变化负有责任。",tm:"the global _______ also (经济体制)"},
           {t:"Controlling is one of the _______, which involves measuring achievement against established objectives and goals.",a:"management functions",h:"管理职能",cn:"控制是管理职能之一，它涉及根据既定目标和指标来衡量成就。",tm:"one of the _______, which (管理职能)"},
           {t:"The 'arm's-length' relationship between the government and the businesses is characteristic of the UK _______.",a:"business system",h:"商业体系",cn:"政府与企业之间的'保持距离'的关系是英国商业体系的特征。",tm:"the UK _______"}
         ]
@@ -135,7 +135,7 @@ const bank = {
         title: "Formal English (非正式→正式替换)",
         wb: ["anticipating","manipulate","enticing","segments","conveys","perceived"],
         bl: [
-          {t:"...marketing is the management process for identifying, _______ and satisfying consumer requirements profitably. (Replace: expecting)",a:"anticipating",h:"expecting的正式表达",tm:"identifying, _______, and satisfying (expecting的正式表达)",cn:"……营销是识别、预期并有利地满足消费者需求的管理过程。"},
+          {t:"...marketing is the management process for identifying, _______ and satisfying consumer requirements profitably. (Replace: expecting)",a:"anticipating",h:"expecting的正式表达",tm:"identifying, _______ and satisfying (expecting的正式表达)",cn:"……营销是识别、预期并有利地满足消费者需求的管理过程。"},
           {t:"As a marketing manager, I _______ what a product looks like, smells like, and feels like. (Replace: control)",a:"manipulate",h:"control的正式表达",tm:"I _______ what a",cn:"作为营销经理，我操纵产品看起来、闻起来和摸起来的感觉。"},
           {t:"I control tools in my promotion tool kit in hopes of _______ consumers to buy my product. (Replace: persuading)",a:"enticing",h:"persuading的正式表达",tm:"of _______ consumers",cn:"我操纵促销工具箱中的工具，希望吸引消费者购买我的产品。"},
           {t:"It also _______ the audience into those who can afford it and those who can only wish they could. (Replace: divides)",a:"segments",h:"divides的正式表达",tm:"_______ the audience into (divides的正式表达)",cn:"它还将受众划分为能负担得起的人和只能望而却步的人。"},
@@ -178,15 +178,15 @@ const bank = {
         wb: ["initiative","principles","declines","data","innovative","transformed","interactive","demonstrations","ultimately","generate"],
         bl: [
           {t:"The infrastructure project is a key part of China's Belt and Road _______.",a:"initiative",h:"倡议",tm:"and Road _______",cn:"该基础设施项目是中国一带一路倡议的关键部分。"},
-          {t:"The new rules were part of a set of _______ Google announced relating to the use of artificial intelligence.",a:"principles",h:"原则",tm:"a set of _______, Google (原则)",cn:"新规则是谷歌宣布的与人工智能使用相关的一套原则的一部分。"},
+          {t:"The new rules were part of a set of _______ Google announced relating to the use of artificial intelligence.",a:"principles",h:"原则",tm:"a set of _______ Google (原则)",cn:"新规则是谷歌宣布的与人工智能使用相关的一套原则的一部分。"},
           {t:"Over the past 30 years, sharp _______ in communication and transportation costs and the reduction of trade barriers have reshaped the global economy.",a:"declines",h:"下降",tm:"sharp _______ in communication",cn:"在过去30年中，通信和运输成本的大幅下降以及贸易壁垒的减少重塑了全球经济。"},
-          {t:"The average hourly wage paid to retail workers dropped to $18.58 in June, from $18.65 a month earlier, according to _______ from the US.",a:"data",h:"数据",tm:"according to _______, from (数据)",cn:"根据美国的数据，零售工人的平均时薪从一个月前的18.65美元降至6月份的18.58美元。"},
-          {t:"Many workers want to join the company, which is widely considered one of the most _______ and exciting tech firms.",a:"innovative",h:"创新的",tm:"most _______, and exciting (创新的)",cn:"许多工人想加入这家公司，它被广泛认为是最创新和最令人兴奋的科技公司之一。"},
-          {t:"The emerging discipline of service science supported research undertaken to understand how technological advances rapidly _______ consumer roles.",a:"transformed",h:"转变",tm:"rapidly _______, consumer roles (转变)",cn:"新兴的服务科学学科支持了旨在了解技术进步如何迅速转变消费者角色的研究。"},
-          {t:"There are many smartphone and tablet apps that offer a new, dynamic and _______ way to learn to read, starting from the basics of letter shapes and sounds.",a:"interactive",h:"互动的",tm:"dynamic and _______, way (交互的)",cn:"有许多智能手机和平板电脑应用提供了一种新的、动态的互动方式来学习阅读，从字母形状和发音的基础开始。"},
-          {t:"The store is intended to serve as a work training site, and Hogg is planning cooking _______ to teach shoppers how to eat better.",a:"demonstrations",h:"演示",tm:"cooking _______, to teach (演示)",cn:"这家店旨在作为一个工作培训场所，霍格正在计划烹饪演示来教购物者如何吃得更健康。"},
-          {t:"Many users of the technology say it _______ saves them time and money by improving efficiency and reducing accidents.",a:"ultimately",h:"最终",tm:"it _______, saves them (最终)",cn:"许多该技术的用户表示，它最终通过提高效率和减少事故来节省时间和金钱。"},
-          {t:"Unlike other automakers, Tesla doesn't _______ revenue simply by making cars.",a:"generate",h:"产生",tm:"doesn't _______, revenue simply (产生)",cn:"与其他汽车制造商不同，特斯拉不仅仅通过制造汽车来产生收入。"}
+          {t:"The average hourly wage paid to retail workers dropped to $18.58 in June, from $18.65 a month earlier, according to _______ from the US.",a:"data",h:"数据",tm:"according to _______ from (数据)",cn:"根据美国的数据，零售工人的平均时薪从一个月前的18.65美元降至6月份的18.58美元。"},
+          {t:"Many workers want to join the company, which is widely considered one of the most _______ and exciting tech firms.",a:"innovative",h:"创新的",tm:"most _______ and exciting (创新的)",cn:"许多工人想加入这家公司，它被广泛认为是最创新和最令人兴奋的科技公司之一。"},
+          {t:"The emerging discipline of service science supported research undertaken to understand how technological advances rapidly _______ consumer roles.",a:"transformed",h:"转变",tm:"rapidly _______ consumer roles (转变)",cn:"新兴的服务科学学科支持了旨在了解技术进步如何迅速转变消费者角色的研究。"},
+          {t:"There are many smartphone and tablet apps that offer a new, dynamic and _______ way to learn to read, starting from the basics of letter shapes and sounds.",a:"interactive",h:"互动的",tm:"dynamic and _______ way (交互的)",cn:"有许多智能手机和平板电脑应用提供了一种新的、动态的互动方式来学习阅读，从字母形状和发音的基础开始。"},
+          {t:"The store is intended to serve as a work training site, and Hogg is planning cooking _______ to teach shoppers how to eat better.",a:"demonstrations",h:"演示",tm:"cooking _______ to teach (演示)",cn:"这家店旨在作为一个工作培训场所，霍格正在计划烹饪演示来教购物者如何吃得更健康。"},
+          {t:"Many users of the technology say it _______ saves them time and money by improving efficiency and reducing accidents.",a:"ultimately",h:"最终",tm:"it _______ saves them (最终)",cn:"许多该技术的用户表示，它最终通过提高效率和减少事故来节省时间和金钱。"},
+          {t:"Unlike other automakers, Tesla doesn't _______ revenue simply by making cars.",a:"generate",h:"产生",tm:"doesn't _______ revenue simply (产生)",cn:"与其他汽车制造商不同，特斯拉不仅仅通过制造汽车来产生收入。"}
         ]
       },
       {
@@ -249,30 +249,30 @@ const bank = {
         title: "Task 1 / Specialized Vocabulary / Exercise 2",
         wb: ["competitive advantage","underused assets","sharing economy","business models","on-demand service","artificial advantages","contract workers","low-wage workforce"],
         bl: [
-          {t:"Apple is a preeminent case of a company whose unique capabilities give it a worldwide _______.",a:"competitive advantage",h:"竞争优势",cn:"苹果是一个典型案例，其独特的能力赋予了它全球竞争优势。",tm:"a worldwide _______, that (竞争优势)"},
-          {t:"Companies can respond to the rise of collaborative consumption by exploiting _______ and capacities.",a:"underused assets",h:"未充分利用的资产",cn:"公司可以通过利用未充分利用的资产和产能来应对协作消费的兴起。",tm:"exploiting _______, and capacities (未充分利用的资产)"},
-          {t:"It is estimated that by 2025, five main sectors of the _______ could represent $335 billion in revenues worldwide.",a:"sharing economy",h:"共享经济",cn:"据估计，到2025年，共享经济的五个主要部门可能在全球范围内创造3350亿美元的收入。",tm:"sectors of the _______, could (共享经济)"},
-          {t:"Companies need to adapt current and future _______ to provide new sources of revenues within this growing area of the economy.",a:"business models",h:"商业模式",cn:"公司需要调整当前和未来的商业模式，以在这个不断增长的经济领域中提供新的收入来源。",tm:"future _______, to provide (商业模式)"},
-          {t:"The company provides a(n) _______ known as 'tool fleet management' — its customers can lease individual tools when necessary.",a:"on-demand service",h:"按需服务",cn:"该公司提供一种被称为'工具车队管理'的按需服务——其客户可以在需要时租赁单个工具。",tm:"a(n) _______, known as (按需服务)"},
-          {t:"Protection refers to government policies that give domestic producers _______ over foreign competitors, such as tariffs and subsidies.",a:"artificial advantages",h:"人为优势",cn:"保护主义是指给予国内生产者对外国竞争者人为优势的政府政策，如关税和补贴。",tm:"producers _______, over foreign (人为优势)"},
-          {t:"Both regular workers and _______ constitute the main workforce of the local company.",a:"contract workers",h:"合同工",cn:"正式员工和合同工构成了这家本地公司的主要劳动力。",tm:"workers and _______, constitute (合同工)"},
-          {t:"The study briefly examines the size and characteristics of the _______ and whether low-wage workers experience wage growth.",a:"low-wage workforce",h:"低薪劳动力",cn:"该研究简要考察了低薪劳动力的规模和特征，以及低薪工人是否经历了工资增长。",tm:"of the _______, and whether (低薪劳动力)"}
+          {t:"Apple is a preeminent case of a company whose unique capabilities give it a worldwide _______.",a:"competitive advantage",h:"竞争优势",cn:"苹果是一个典型案例，其独特的能力赋予了它全球竞争优势。",tm:"a worldwide _______ that (竞争优势)"},
+          {t:"Companies can respond to the rise of collaborative consumption by exploiting _______ and capacities.",a:"underused assets",h:"未充分利用的资产",cn:"公司可以通过利用未充分利用的资产和产能来应对协作消费的兴起。",tm:"exploiting _______ and capacities (未充分利用的资产)"},
+          {t:"It is estimated that by 2025, five main sectors of the _______ could represent $335 billion in revenues worldwide.",a:"sharing economy",h:"共享经济",cn:"据估计，到2025年，共享经济的五个主要部门可能在全球范围内创造3350亿美元的收入。",tm:"sectors of the _______ could (共享经济)"},
+          {t:"Companies need to adapt current and future _______ to provide new sources of revenues within this growing area of the economy.",a:"business models",h:"商业模式",cn:"公司需要调整当前和未来的商业模式，以在这个不断增长的经济领域中提供新的收入来源。",tm:"future _______ to provide (商业模式)"},
+          {t:"The company provides a(n) _______ known as 'tool fleet management' — its customers can lease individual tools when necessary.",a:"on-demand service",h:"按需服务",cn:"该公司提供一种被称为'工具车队管理'的按需服务——其客户可以在需要时租赁单个工具。",tm:"a(n) _______ known as (按需服务)"},
+          {t:"Protection refers to government policies that give domestic producers _______ over foreign competitors, such as tariffs and subsidies.",a:"artificial advantages",h:"人为优势",cn:"保护主义是指给予国内生产者对外国竞争者人为优势的政府政策，如关税和补贴。",tm:"producers _______ over foreign (人为优势)"},
+          {t:"Both regular workers and _______ constitute the main workforce of the local company.",a:"contract workers",h:"合同工",cn:"正式员工和合同工构成了这家本地公司的主要劳动力。",tm:"workers and _______ constitute (合同工)"},
+          {t:"The study briefly examines the size and characteristics of the _______ and whether low-wage workers experience wage growth.",a:"low-wage workforce",h:"低薪劳动力",cn:"该研究简要考察了低薪劳动力的规模和特征，以及低薪工人是否经历了工资增长。",tm:"of the _______ and whether (低薪劳动力)"}
         ]
       },
       {
         title: "Task 2 / Academic Vocabulary",
         wb: ["facilitate","sources","regulatory","maintain","exposed","legal","evolution","periodic","contract","undiminished"],
         bl: [
-          {t:"Growth in sharing systems has particularly been fuelled by the rise of social media systems, which _______ connections between peers eager to share their possessions.",a:"facilitate",h:"促进",cn:"共享系统的增长特别受到社交媒体系统兴起的推动，社交媒体促进了渴望分享自己物品的同龄人之间的联系。",tm:"which _______, connections (促进)"},
-          {t:"While many conventional profit formulas in business models are based on selling objects, in sharing economies new _______ of revenue have to be developed, as purchase is often omitted.",a:"sources",h:"来源",cn:"虽然商业模式中许多传统的利润公式基于销售物品，但在共享经济中，由于购买经常被省略，必须开发新的收入来源。",tm:"new _______, of revenue (来源)"},
-          {t:"Across the technology industry, investors are suddenly anxious that intensified _______ scrutiny is going to hurt profits and therefore stock prices.",a:"regulatory",h:"监管的",cn:"在整个科技行业，投资者突然担心加强的监管审查将损害利润，从而影响股价。",tm:"intensified _______, scrutiny (监管的)"},
-          {t:"The central bank seeks to _______ the overall stability of the financial system.",a:"maintain",h:"维持",cn:"中央银行寻求维持金融体系的整体稳定。",tm:"to _______, the overall (维持)"},
-          {t:"People _______ to a consumer story about a brand felt higher levels of connection to and trust in the brand.",a:"exposed",h:"接触",cn:"接触到品牌消费者故事的人对该品牌的联系感和信任度更高。",tm:"People _______, to a (暴露的)"},
-          {t:"He says the company is confident that its financial reporting meets all _______ and accounting requirements.",a:"legal",h:"法律的",cn:"他说公司确信其财务报告满足所有法律和会计要求。",tm:"all _______, and accounting (法律的)"},
+          {t:"Growth in sharing systems has particularly been fuelled by the rise of social media systems, which _______ connections between peers eager to share their possessions.",a:"facilitate",h:"促进",cn:"共享系统的增长特别受到社交媒体系统兴起的推动，社交媒体促进了渴望分享自己物品的同龄人之间的联系。",tm:"which _______ connections (促进)"},
+          {t:"While many conventional profit formulas in business models are based on selling objects, in sharing economies new _______ of revenue have to be developed, as purchase is often omitted.",a:"sources",h:"来源",cn:"虽然商业模式中许多传统的利润公式基于销售物品，但在共享经济中，由于购买经常被省略，必须开发新的收入来源。",tm:"new _______ of revenue (来源)"},
+          {t:"Across the technology industry, investors are suddenly anxious that intensified _______ scrutiny is going to hurt profits and therefore stock prices.",a:"regulatory",h:"监管的",cn:"在整个科技行业，投资者突然担心加强的监管审查将损害利润，从而影响股价。",tm:"intensified _______ scrutiny (监管的)"},
+          {t:"The central bank seeks to _______ the overall stability of the financial system.",a:"maintain",h:"维持",cn:"中央银行寻求维持金融体系的整体稳定。",tm:"to _______ the overall (维持)"},
+          {t:"People _______ to a consumer story about a brand felt higher levels of connection to and trust in the brand.",a:"exposed",h:"接触",cn:"接触到品牌消费者故事的人对该品牌的联系感和信任度更高。",tm:"People _______ to a (暴露的)"},
+          {t:"He says the company is confident that its financial reporting meets all _______ and accounting requirements.",a:"legal",h:"法律的",cn:"他说公司确信其财务报告满足所有法律和会计要求。",tm:"all _______ and accounting (法律的)"},
           {t:"We observed the _______ of the sharing economy and the emergence of new business models in collaborative consumption over the last two years.",a:"evolution",h:"演变",cn:"在过去两年中，我们观察到了共享经济的演变以及协作消费中新商业模式的出现。",tm:"the _______ of (evolution → 逐渐发展)"},
-          {t:"It is necessary to update your portfolio chart on a(n) _______ basis.",a:"periodic",h:"定期的",cn:"有必要定期更新你的投资组合图表。",tm:"a(n) _______, basis (定期的)"},
-          {t:"As a(n) _______ worker, John collected an hourly wage and no benefits and could be let go at any time.",a:"contract",h:"合同的",cn:"作为一名合同工，约翰领取时薪，没有福利，随时可能被解雇。",tm:"a(n) _______, worker (合同的)"},
-          {t:"A(n) _______ reputation cannot necessarily lead to a good financial performance of a company.",a:"undiminished",h:"不减的；持续的",cn:"持续的声誉不一定能带来公司良好的财务表现。",tm:"A(n) _______, reputation (未减弱的)"}
+          {t:"It is necessary to update your portfolio chart on a(n) _______ basis.",a:"periodic",h:"定期的",cn:"有必要定期更新你的投资组合图表。",tm:"a(n) _______ basis (定期的)"},
+          {t:"As a(n) _______ worker, John collected an hourly wage and no benefits and could be let go at any time.",a:"contract",h:"合同的",cn:"作为一名合同工，约翰领取时薪，没有福利，随时可能被解雇。",tm:"a(n) _______ worker (合同的)"},
+          {t:"A(n) _______ reputation cannot necessarily lead to a good financial performance of a company.",a:"undiminished",h:"不减的；持续的",cn:"持续的声誉不一定能带来公司良好的财务表现。",tm:"A(n) _______ reputation (未减弱的)"}
         ]
       },
       {
@@ -297,7 +297,7 @@ const bank = {
           {t:"Some artificial advantages that these companies have enjoyed will fall away as regulatory and legal pressures _______, and as their business models converge with those of more traditional businesses. (Replace: mount)",a:"increase gradually",h:"mount的日常表达",cn:"随着监管和法律压力逐渐增加，以及它们的商业模式与更传统企业的商业模式趋同，这些公司享有的一些人为优势将会消失。",tm:"pressures _______ (mount → 逐渐增加)"},
           {t:"Rather than simple two-sided marketplaces that match people looking for a service with others willing to supply it, they will take on much more of the responsibility for the delivery of their services, hiring workers and _______ assets in the process. (Replace: financing)",a:"providing money for",h:"financing的日常表达",cn:"它们将不再是简单的双方市场——匹配寻找服务的人与愿意提供服务的人——而是将承担更多服务交付的责任，雇用工人并为资产提供资金。",tm:"_______ money for (financing → 提供资金)"},
           {t:"They will also remain _______ local businesses, struggling to establish the network effects that turn online platforms into real money-spinners. (Replace: essentially)",a:"basically",h:"essentially的日常表达",cn:"它们基本上仍然是本地企业，努力建立能将在线平台变成真正赚钱工具的网络效应。",tm:"remain _______ (essentially → 基本上)"},
-          {t:"But for the truly disruptive, the _______ of the sharing economy into something more mainstream should do little to undermine their long-term potential. (Replace: evolution)",a:"gradual development",h:"evolution的日常表达",cn:"但对于真正具有颠覆性的企业来说，共享经济向更主流的逐步发展应该不会削弱它们的长期潜力。",tm:"the _______, of the sharing (evolution → 逐渐发展)"},
+          {t:"But for the truly disruptive, the _______ of the sharing economy into something more mainstream should do little to undermine their long-term potential. (Replace: evolution)",a:"gradual development",h:"evolution的日常表达",cn:"但对于真正具有颠覆性的企业来说，共享经济向更主流的逐步发展应该不会削弱它们的长期潜力。",tm:"the _______ of the sharing (evolution → 逐渐发展)"},
           {t:"As a way to tap into massive untapped pools of assets and labour, their potential is _______. (Replace: undiminished)",a:"always remains strong",h:"undiminished的日常表达",cn:"作为利用大量未被开发的资产和劳动力池的方式，它们的潜力始终保持着强大。",tm:"_______ strong (undiminished → 始终强劲)"}
         ]
       },
@@ -337,27 +337,27 @@ const bank = {
         title: "Task 1 / Specialized Vocabulary / Exercise 2",
         wb: ["start-ups","Self-driving cars","transport market","private ride-sharing services","low-margin airline"],
         bl: [
-          {t:"Uber, a company founded in 2009, is now one of the world's most valuable _______.",a:"start-ups",h:"初创公司",cn:"Uber成立于2009年，现在是世界上最有价值的初创公司之一。",tm:"valuable _______, in the (初创公司)"},
+          {t:"Uber, a company founded in 2009, is now one of the world's most valuable _______.",a:"start-ups",h:"初创公司",cn:"Uber成立于2009年，现在是世界上最有价值的初创公司之一。",tm:"valuable _______ in the (初创公司)"},
           {t:"_______ will make ride-hailing cheaper and more accessible.",a:"Self-driving cars",h:"自动驾驶汽车",cn:"自动驾驶汽车将使叫车服务更便宜、更便捷。",tm:"_______ will make ride-hailing (自动驾驶汽车)"},
-          {t:"Uber's innovation has brought significant changes to the _______.",a:"transport market",h:"运输市场",cn:"Uber的创新给运输市场带来了重大变化。",tm:"changes to the _______, brought (运输市场)"},
-          {t:"On-demand bus apps enable customers to enjoy _______.",a:"private ride-sharing services",h:"私人拼车服务",cn:"按需公交应用使客户能够享受私人拼车服务。",tm:"enjoy _______, On-demand (私人拼车服务)"},
-          {t:"If Uber owned and operated its own fleet, it would look like a _______.",a:"low-margin airline",h:"低利润航空公司",cn:"如果Uber拥有并运营自己的车队，它看起来就像一家低利润航空公司。",tm:"like a _______, it would (低利润航空公司)"}
+          {t:"Uber's innovation has brought significant changes to the _______.",a:"transport market",h:"运输市场",cn:"Uber的创新给运输市场带来了重大变化。",tm:"changes to the _______ brought (运输市场)"},
+          {t:"On-demand bus apps enable customers to enjoy _______.",a:"private ride-sharing services",h:"私人拼车服务",cn:"按需公交应用使客户能够享受私人拼车服务。",tm:"enjoy _______ On-demand (私人拼车服务)"},
+          {t:"If Uber owned and operated its own fleet, it would look like a _______.",a:"low-margin airline",h:"低利润航空公司",cn:"如果Uber拥有并运营自己的车队，它看起来就像一家低利润航空公司。",tm:"like a _______ it would (低利润航空公司)"}
         ]
       },
       {
         title: "Task 2 / Academic Vocabulary",
         wb: ["accessible","technological","infrastructure","transport","reinforced","consequences","integral","enormous","dominance","devoted"],
         bl: [
-          {t:"Employers must ensure that their workplaces are _______ to the disabled.",a:"accessible",h:"可进入的",cn:"雇主必须确保工作场所对残疾人是可进入的。",tm:"are _______, to the disabled (可接近的)"},
-          {t:"The rising level of global competition and the acceleration of _______ change mean that global expansion is no longer an optional activity.",a:"technological",h:"技术的",cn:"全球竞争水平的不断提高和技术变化的加速意味着全球扩张不再是可有可无的活动。",tm:"of _______, change (技术的)"},
-          {t:"The start-up has made itself a leading supplier of information technology _______.",a:"infrastructure",h:"基础设施",cn:"这家初创公司已成为信息技术基础设施的领先供应商。",tm:"technology _______, has made (基础设施)"},
-          {t:"If you think that these _______ problems can be solved by building more roads, you completely misunderstand the nature of these problems.",a:"transport",h:"运输",cn:"如果你认为这些运输问题可以通过修建更多道路来解决，你完全误解了这些问题的本质。",tm:"these _______, problems (运输)"},
-          {t:"The study _______ the idea that the potential of the digitalized world would encourage relationship building.",a:"reinforced",h:"强化",cn:"该研究强化了数字化世界的潜力将鼓励关系建立的观点。",tm:"study _______, the idea (强化)"},
-          {t:"The impact of rising steel prices on agriculture illustrates the unintended and unpredictable _______ of aggressive protectionism in a global economy.",a:"consequences",h:"后果",cn:"钢铁价格上涨对农业的影响说明了在全球经济中激进保护主义带来的意想不到和不可预测的后果。",tm:"unpredictable _______, of aggressive (后果)"},
-          {t:"Information technology advances have become a(n) _______ element of 21st-century consumer experiences.",a:"integral",h:"必不可少的",cn:"信息技术进步已成为21世纪消费者体验中必不可少的元素。",tm:"a(n) _______, element (不可或缺的)"},
-          {t:"The individual can be considered as the smallest service system, while nations and global economy are examples of _______ ones.",a:"enormous",h:"巨大的",cn:"个人可以被认为是最小的服务系统，而国家和全球经济则是巨大系统的例子。",tm:"of _______, ones (巨大的)"},
-          {t:"The inappropriate corporate strategies led to the company's loss of its market _______.",a:"dominance",h:"主导地位",cn:"不恰当的企业战略导致了公司失去了市场主导地位。",tm:"market _______, led to (主导地位)"},
-          {t:"Wal-Mart says it is doubling the number of seasonal employees _______ to fulfilling online orders.",a:"devoted",h:"致力于",cn:"沃尔玛表示正在将致力于完成在线订单的临时员工数量翻倍。",tm:"employees _______, to fulfilling (投入的)"}
+          {t:"Employers must ensure that their workplaces are _______ to the disabled.",a:"accessible",h:"可进入的",cn:"雇主必须确保工作场所对残疾人是可进入的。",tm:"are _______ to the disabled (可接近的)"},
+          {t:"The rising level of global competition and the acceleration of _______ change mean that global expansion is no longer an optional activity.",a:"technological",h:"技术的",cn:"全球竞争水平的不断提高和技术变化的加速意味着全球扩张不再是可有可无的活动。",tm:"of _______ change (技术的)"},
+          {t:"The start-up has made itself a leading supplier of information technology _______.",a:"infrastructure",h:"基础设施",cn:"这家初创公司已成为信息技术基础设施的领先供应商。",tm:"technology _______ has made (基础设施)"},
+          {t:"If you think that these _______ problems can be solved by building more roads, you completely misunderstand the nature of these problems.",a:"transport",h:"运输",cn:"如果你认为这些运输问题可以通过修建更多道路来解决，你完全误解了这些问题的本质。",tm:"these _______ problems (运输)"},
+          {t:"The study _______ the idea that the potential of the digitalized world would encourage relationship building.",a:"reinforced",h:"强化",cn:"该研究强化了数字化世界的潜力将鼓励关系建立的观点。",tm:"study _______ the idea (强化)"},
+          {t:"The impact of rising steel prices on agriculture illustrates the unintended and unpredictable _______ of aggressive protectionism in a global economy.",a:"consequences",h:"后果",cn:"钢铁价格上涨对农业的影响说明了在全球经济中激进保护主义带来的意想不到和不可预测的后果。",tm:"unpredictable _______ of aggressive (后果)"},
+          {t:"Information technology advances have become a(n) _______ element of 21st-century consumer experiences.",a:"integral",h:"必不可少的",cn:"信息技术进步已成为21世纪消费者体验中必不可少的元素。",tm:"a(n) _______ element (不可或缺的)"},
+          {t:"The individual can be considered as the smallest service system, while nations and global economy are examples of _______ ones.",a:"enormous",h:"巨大的",cn:"个人可以被认为是最小的服务系统，而国家和全球经济则是巨大系统的例子。",tm:"of _______ ones (巨大的)"},
+          {t:"The inappropriate corporate strategies led to the company's loss of its market _______.",a:"dominance",h:"主导地位",cn:"不恰当的企业战略导致了公司失去了市场主导地位。",tm:"market _______ led to (主导地位)"},
+          {t:"Wal-Mart says it is doubling the number of seasonal employees _______ to fulfilling online orders.",a:"devoted",h:"致力于",cn:"沃尔玛表示正在将致力于完成在线订单的临时员工数量翻倍。",tm:"employees _______ to fulfilling (投入的)"}
         ]
       },
       {
@@ -379,27 +379,27 @@ const bank = {
         wb: ["give up","greatly","started","driving","unclear","profitable"],
         bl: [
           {t:"Using self-driving vehicles, it wants to make ride-hailing so cheap and convenient that people _______ car ownership altogether. (Replace: forgo)",a:"give up",h:"forgo的日常表达",cn:"使用自动驾驶汽车，它想让叫车服务变得如此便宜和方便，以至于人们完全放弃拥有汽车。",tm:"_______ car ownership (forgo → 放弃)"},
-          {t:"It will transform daily life as _______ as cars did in the 20th century. (Replace: profoundly)",a:"greatly",h:"profoundly的日常表达",cn:"它将像20世纪的汽车一样极大地改变日常生活。",tm:"as _______, as cars (profoundly → 极大地)"},
-          {t:"A start-up called nuTonomy recently _______ a self-driving taxi service in Singapore. (Replace: launched)",a:"started",h:"launched的日常表达",cn:"一家名为nuTonomy的初创公司最近在新加坡推出了一项自动驾驶出租车服务。",tm:"recently _______, a self-driving taxi (launched → 开始)"},
-          {t:"But this existential threat is _______ the firm's innovation. (Replace: spurring)",a:"driving",h:"spurring的日常表达",cn:"但这种生存威胁正在推动该公司的创新。",tm:"threat is _______, the firm's innovation (spurring → 推动)"},
-          {t:"Uber's success in ride-hailing owes much to this recipe, yet when it comes to autonomous vehicles, the combination of _______ rules and imperfect technology can have deadly consequences. (Replace: vague)",a:"unclear",h:"vague的日常表达",cn:"Uber在叫车服务上的成功很大程度上归功于这一秘诀，但当谈到自动驾驶汽车时，不明确的规则和不完善的技术相结合可能会产生致命后果。",tm:"of _______, rules (vague → 不清楚的)"},
-          {t:"As more firms pile into ride-sharing, and autonomous vehicles become part of the mix, the business may prove to be less _______ than expected. (Replace: lucrative)",a:"profitable",h:"lucrative的日常表达",cn:"随着更多公司涌入拼车领域，自动驾驶汽车成为其中的一部分，该业务可能被证明不如预期的有利可图。",tm:"less _______, than expected (lucrative → 有利可图的)"}
+          {t:"It will transform daily life as _______ as cars did in the 20th century. (Replace: profoundly)",a:"greatly",h:"profoundly的日常表达",cn:"它将像20世纪的汽车一样极大地改变日常生活。",tm:"as _______ as cars (profoundly → 极大地)"},
+          {t:"A start-up called nuTonomy recently _______ a self-driving taxi service in Singapore. (Replace: launched)",a:"started",h:"launched的日常表达",cn:"一家名为nuTonomy的初创公司最近在新加坡推出了一项自动驾驶出租车服务。",tm:"recently _______ a self-driving taxi (launched → 开始)"},
+          {t:"But this existential threat is _______ the firm's innovation. (Replace: spurring)",a:"driving",h:"spurring的日常表达",cn:"但这种生存威胁正在推动该公司的创新。",tm:"threat is _______ the firm's innovation (spurring → 推动)"},
+          {t:"Uber's success in ride-hailing owes much to this recipe, yet when it comes to autonomous vehicles, the combination of _______ rules and imperfect technology can have deadly consequences. (Replace: vague)",a:"unclear",h:"vague的日常表达",cn:"Uber在叫车服务上的成功很大程度上归功于这一秘诀，但当谈到自动驾驶汽车时，不明确的规则和不完善的技术相结合可能会产生致命后果。",tm:"of _______ rules (vague → 不清楚的)"},
+          {t:"As more firms pile into ride-sharing, and autonomous vehicles become part of the mix, the business may prove to be less _______ than expected. (Replace: lucrative)",a:"profitable",h:"lucrative的日常表达",cn:"随着更多公司涌入拼车领域，自动驾驶汽车成为其中的一部分，该业务可能被证明不如预期的有利可图。",tm:"less _______ than expected (lucrative → 有利可图的)"}
         ]
       },
       {
         title: "Task 5 / Academic Vocabulary — 第二组",
         wb: ["constantly","access","acquisition","demonstrate","commitment","exceed","enhance","incentive","significant","complementary"],
         bl: [
-          {t:"Lenovo Group's _______ of IBM's PC division allowed the Chinese electronics company to access a new set of capabilities.",a:"acquisition",h:"收购",cn:"联想集团收购IBM的个人电脑部门使这家中国电子公司获得了一组新的能力。",tm:"Group's _______, of IBM's PC division (收购)"},
-          {t:"Suppliers of supermarkets are charged fees to _______ prime shelf space.",a:"access",h:"使用；进入",cn:"超市的供应商被收取费用以使用优质货架空间。",tm:"fees to _______, prime shelf (接近)"},
-          {t:"Amazon is _______ experimenting to shorten delivery times and reduce costs.",a:"constantly",h:"不断地",cn:"亚马逊在不断地进行实验，以缩短交付时间并降低成本。",tm:"is _______, experimenting (不断地)"},
-          {t:"Taking advantage of AI opportunities requires organizational _______ to overcoming the inevitable difficulties that accompany many AI initiatives.",a:"commitment",h:"承诺；投入",cn:"利用AI机会需要组织承诺克服伴随许多AI项目而来的不可避免的困难。",tm:"organizational _______, to overcoming (承诺)"},
-          {t:"Apple depends on China for a(n) _______ amount of its sales, as well as its manufacturing.",a:"significant",h:"重大的；显著的",cn:"苹果在中国有相当大的一部分销售额，以及其制造业。",tm:"a(n) _______, amount (显著的)"},
+          {t:"Lenovo Group's _______ of IBM's PC division allowed the Chinese electronics company to access a new set of capabilities.",a:"acquisition",h:"收购",cn:"联想集团收购IBM的个人电脑部门使这家中国电子公司获得了一组新的能力。",tm:"Group's _______ of IBM's PC division (收购)"},
+          {t:"Suppliers of supermarkets are charged fees to _______ prime shelf space.",a:"access",h:"使用；进入",cn:"超市的供应商被收取费用以使用优质货架空间。",tm:"fees to _______ prime shelf (接近)"},
+          {t:"Amazon is _______ experimenting to shorten delivery times and reduce costs.",a:"constantly",h:"不断地",cn:"亚马逊在不断地进行实验，以缩短交付时间并降低成本。",tm:"is _______ experimenting (不断地)"},
+          {t:"Taking advantage of AI opportunities requires organizational _______ to overcoming the inevitable difficulties that accompany many AI initiatives.",a:"commitment",h:"承诺；投入",cn:"利用AI机会需要组织承诺克服伴随许多AI项目而来的不可避免的困难。",tm:"organizational _______ to overcoming (承诺)"},
+          {t:"Apple depends on China for a(n) _______ amount of its sales, as well as its manufacturing.",a:"significant",h:"重大的；显著的",cn:"苹果在中国有相当大的一部分销售额，以及其制造业。",tm:"a(n) _______ amount (显著的)"},
           {t:"When business activities, relationships, technology and regulation are _______, it is hard to make incremental changes to the system.",a:"complementary",h:"互补的",cn:"当商业活动、关系、技术和法规互补时，很难对系统进行渐进式变革。",tm:"regulation are _______, it is hard (互补的)"},
-          {t:"Well-designed _______ can help decentralize management and motivate employees to take the initiative.",a:"incentives",h:"激励",cn:"设计良好的激励措施可以帮助分权管理并激励员工主动行动。",tm:"Well-designed _______, can help (激励措施)"},
-          {t:"This study has _______ the effect of management consultancy on innovation by using a large data set drawn from emerging economies.",a:"demonstrated",h:"证明；展示",cn:"本研究通过使用来自新兴经济体的大数据集，证明了管理咨询对创新的影响。",tm:"has _______, the effect (证明)"},
-          {t:"The economists found that when public debt _______ 90% of GDP, countries experienced slower economic growth than countries with lower levels of debt.",a:"exceeded",h:"超过",cn:"经济学家发现，当公共债务超过GDP的90%时，国家的经济增长比债务水平较低的国家更慢。",tm:"debt _______, 90% of (超过)"},
-          {t:"Providing support for sharing can _______ your company's reputation by attracting environmentally minded customers.",a:"enhance",h:"提高；增强",cn:"支持共享可以通过吸引环保意识的客户来提高公司的声誉。",tm:"can _______, your company's (增强)"}
+          {t:"Well-designed _______ can help decentralize management and motivate employees to take the initiative.",a:"incentives",h:"激励",cn:"设计良好的激励措施可以帮助分权管理并激励员工主动行动。",tm:"Well-designed _______ can help (激励措施)"},
+          {t:"This study has _______ the effect of management consultancy on innovation by using a large data set drawn from emerging economies.",a:"demonstrated",h:"证明；展示",cn:"本研究通过使用来自新兴经济体的大数据集，证明了管理咨询对创新的影响。",tm:"has _______ the effect (证明)"},
+          {t:"The economists found that when public debt _______ 90% of GDP, countries experienced slower economic growth than countries with lower levels of debt.",a:"exceeded",h:"超过",cn:"经济学家发现，当公共债务超过GDP的90%时，国家的经济增长比债务水平较低的国家更慢。",tm:"debt _______ 90% of (超过)"},
+          {t:"Providing support for sharing can _______ your company's reputation by attracting environmentally minded customers.",a:"enhance",h:"提高；增强",cn:"支持共享可以通过吸引环保意识的客户来提高公司的声誉。",tm:"can _______ your company's (增强)"}
         ]
       }
     ],
