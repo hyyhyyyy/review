@@ -222,7 +222,7 @@ const bank = {
           {t:"In today's knowledge-based economy, managers need to redefine their roles, rather than _______ when several decisions need to be coordinated.",a:"stand by",h:"袖手旁观",tm:"rather than _______ (袖手旁观)",cn:"在当今的知识经济中，管理者需要重新定义自己的角色，而不是在需要协调多个决策时袖手旁观。"},
           {t:"It is difficult to find _______ convenience stores in this residential neighborhood.",a:"substitutes for",h:"对……的代替物",tm:"find _______ for (…的代替物)",cn:"在这个住宅区很难找到便利店的替代品。"},
           {t:"The financial report _______ too many diagrams.",a:"is cluttered with",h:"堆砌",tm:"_______ with (堆砌)",cn:"财务报告中堆砌了太多图表。"},
-          {t:"As regards supermarket pricing strategies, the rich _______ everyday low pricing.",a:"favor promotional pricing over",h:"比起……更喜欢……",tm:"_______ over (比起…更喜欢)",cn:"关于超市定价策略，富人比起每日低价更喜欢促销定价。"},
+          {t:"As regards supermarket pricing strategies, the rich _______ everyday low pricing _______.",a:"favor promotional pricing|over",h:"比起……更喜欢……",tm:"_______ over (比起…更喜欢)",cn:"关于超市定价策略，富人比起每日低价更喜欢促销定价。"},
           {t:"Settlement with the polluting coke plant offers complex resolution to simple demand, that is, to fix it or _______.",a:"shut it down",h:"关闭",tm:"fix it or _______ (关闭)",cn:"与污染焦化厂的和解为简单要求提供了复杂的解决方案，即修复它或关闭它。"},
           {t:"In this article, the suggestions _______ successful cases in the business world.",a:"are interspersed with",h:"点缀；散布",tm:"_______ with (点缀；散布)",cn:"在这篇文章中，建议与商业世界的成功案例散布其中。"},
           {t:"The question under what circumstances companies should involve customers in pricing decisions has _______.",a:"caught the manager's eye",h:"引起经理的注意",tm:"has _______ (引起注意)",cn:"公司在什么情况下应该让客户参与定价决策的问题已经引起了经理的注意。"}
@@ -280,7 +280,7 @@ const bank = {
         wb: ["comply with","bear in mind","go through","tap into","turn out to be","take on responsibility","put ... at risk","to the benefit of"],
         bl: [
           {t:"Expensive brands are _______ street style to refresh their looks and young buyers are driving the shift.",a:"tapping into",h:"利用；发掘",cn:"昂贵的品牌正在利用街头风格来刷新外观，年轻买家正在推动这一转变。",tm:"_______ street style (利用；发掘)"},
-          {t:"The sharing economy might _______ established industries, due to fewer purchases and consequent distress in conventional markets.",a:"put at risk",h:"使……处于危险中",cn:"由于购买减少和传统市场随之而来的困境，共享经济可能使成熟行业处于危险之中。",tm:"_______ at risk (使…处于危险中)"},
+          {t:"The sharing economy might _______ established industries _______, due to fewer purchases and consequent distress in conventional markets.",a:"put|at risk",h:"使……处于危险中",cn:"由于购买减少和传统市场随之而来的困境，共享经济可能使成熟行业处于危险之中。",tm:"_______ at risk (使…处于危险中)"},
           {t:"It is _______ consumers that the sharing economy holds the potential to combine cost reduction and convenience in one mode of consumption.",a:"to the benefit of",h:"对……有利",cn:"共享经济对消费者有利，它有潜力将降低成本和便利性结合在一种消费模式中。",tm:"_______ the benefit of (对…有利)"},
           {t:"The company _______ a good example of how an established global enterprise can adapt and expand its business model from selling products to selling the use of the product.",a:"turns out to be",h:"结果是",cn:"该公司结果是一个很好的例子，展示了成熟的全球企业如何从销售产品转向销售产品使用权的业务模式调整和扩展。",tm:"_______ to be (结果是)"},
           {t:"The best employees are those who _______ because they see a need for the work to be done and they derive satisfaction from meeting that need.",a:"take on responsibility",h:"承担责任",cn:"最好的员工是那些主动承担责任的人，因为他们看到了完成工作的需要，并从满足这种需要中获得满足感。",tm:"_______ responsibility (承担责任)"},
