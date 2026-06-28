@@ -116,7 +116,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="checkbox-item" data-value="vocab-cn" data-group="type"><span class="check-icon">✓</span>词汇中译英</div>
 <div class="checkbox-item" data-value="fill" data-group="type"><span class="check-icon">✓</span>选词填空</div>
 <div class="checkbox-item" data-value="fill-notrans" data-group="type"><span class="check-icon">✓</span>选词填空·无翻译</div>
-
+<div class="checkbox-item" data-value="fill-choice" data-group="type"><span class="check-icon">✓</span>选词填空·选择</div>
 <div class="checkbox-item" data-value="translate" data-group="type"><span class="check-icon">✓</span>段落翻译</div>
 </div>
 <div class="section-title">出题模式</div>
@@ -186,7 +186,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 window.onerror=function(msg,url,line){document.body.insertAdjacentHTML('afterbegin','<div style="background:red;color:#fff;padding:10px;font-size:14px;position:fixed;top:0;left:0;z-index:99999;width:100%">JS Error: '+msg+' (line '+line+')</div>');return false};
 // ===================== STATE =====================
 let groups=[],gi=0,qi=0,answers={},mode='sequential',mistakes=JSON.parse(localStorage.getItem('engM')||'[]');
-const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-notrans':'选词填空·无翻译','translate':'段落翻译'};
+const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-notrans':'选词填空·无翻译','fill-choice':'选词填空·选择','translate':'段落翻译'};
 
 // ===================== INIT =====================
 function init(){
@@ -217,6 +217,13 @@ document.getElementById('backToSetupBtn').addEventListener('click',back);
 document.getElementById('redoGroupBtn').addEventListener('click',redoGroup);
 }
 function sh(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function selOpt(idx){
+  const g=groups[gi],q=g.questions[qi];if(!q||q.type!=='fill-choice')return;
+  if(answers[q.id])return;
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  const el=document.getElementById('opt'+idx);if(el)el.classList.add('selected');
+  document.getElementById('fcSel').value=idx;
+}
 
 // ===================== START =====================
 function start(){
@@ -247,6 +254,21 @@ for(const u of units){
           questions:[{id:`${t==='fill-notrans'?'fn':'f'}-${u}-${setIdx}`,type:t,unit:u,data:set}]
         });
       });
+    }
+    if(t==='fill-choice'){
+      const sets=unitData.fill||[];
+      const allWb=[...new Set(sets.flatMap(s=>s.wb))];
+      let qs=[];
+      sets.forEach((set,setIdx)=>{
+        if(!set.bl||!set.bl.length)return;
+        set.bl.forEach((b,bi)=>{
+          const distractors=allWb.filter(w=>w!==b.a);
+          const opts=sh(distractors).slice(0,5).concat(b.a);
+          qs.push({id:`fc-${u}-${setIdx}-${bi}`,type:t,unit:u,q:b.t,a:b.a,h:b.h,cn:b.cn,
+            opts:sh(opts),setTitle:set.title||'练习'+(setIdx+1),setIdx:setIdx});
+        });
+      });
+      if(qs.length)groups.push({unit:u,type:t,name:`Unit ${u} · ${typeNames[t]}`,questions:mode==='random'?sh(qs):qs});
     }
     if(t==='translate'){
       const tr=unitData.trans;
@@ -291,16 +313,22 @@ html+=`<input type="text" class="input-answer" id="usrIn" placeholder="请输入
 html+=`<div class="spell-tip" id="spTip"></div>`;
 html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}</div></div>`;
 }else if(q.type==='fill'||q.type==='fill-notrans'){
-html+=`<div class="question-title">阅读下列句子，从上方 Word Bank 中选择合适的词填入空白处。</div>`;
-const shuffledWb=sh(q.data.wb);
-html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${shuffledWb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
-const showCn=q.type==='fill';
-q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div>${showCn&&b.cn?`<div class="fill-cn">${b.cn}</div>`:''}<input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
-html+=`<div class="answer-section" id="ansSec"><div class="answer-title">提示</div><div class="answer-text">填完所有空后点击提交答案</div></div>`;
-}else if(q.type==='translate'){
-html+=`<div class="question-title">请将以下英文段落翻译成中文：</div><div class="translate-box">${q.p}</div>`;
-html+=`<textarea class="input-answer" id="usrIn" rows="6" placeholder="请输入中文翻译..."></textarea>`;
-html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考译文</div><div class="answer-text">${q.a}</div></div>`;
+  html+=`<div class="question-title">阅读下列句子，从上方 Word Bank 中选择合适的词填入空白处。</div>`;
+  const shuffledWb=sh(q.data.wb);
+  html+=`<div class="word-bank"><div class="word-bank-title">Word Bank</div>${shuffledWb.map(w=>`<span class="word-chip">${w}</span>`).join('')}</div>`;
+  const showCn=q.type==='fill';
+  q.data.bl.forEach((b,i)=>{html+=`<div class="fill-item"><div class="fill-sentence">${i+1}. ${b.t}</div>${showCn&&b.cn?`<div class="fill-cn">${b.cn}</div>`:''}<input type="text" class="fill-input" id="fi${i}" placeholder="填空 ${i+1}" data-a="${b.a}"><div class="fill-ans" id="fa${i}">参考答案：${b.a}${b.h?' ('+b.h+')':''}</div></div>`});
+  html+=`<div class="answer-section" id="ansSec"><div class="answer-title">提示</div><div class="answer-text">填完所有空后点击提交答案</div></div>`;
+}else if(q.type==='fill-choice'){
+  html+=`<div class="question-title">${q.q}</div>`;
+  const keys='ABCDEF';
+  html+=`<div class="options">`;
+  q.opts.forEach((o,i)=>{
+    html+=`<div class="option" id="opt${i}" onclick="selOpt(${i})"><span class="option-key">${keys[i]}</span><span>${o}</span></div>`;
+  });
+  html+=`</div>`;
+  html+=`<input type="hidden" id="fcSel" value="">`;
+  html+=`<div class="answer-section" id="ansSec"><div class="answer-title">参考答案</div><div class="answer-text">${q.a}${q.h?' ('+q.h+')':''}</div></div>`;
 }
 html+=`</div>`;box.innerHTML=html;
 // restore state
@@ -309,6 +337,7 @@ const ans=answers[sid];document.getElementById('checkBtn').textContent='已作�
 if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ans.c?'正确！':`错误！你的：「${ans.u}」 正确：「${q.a}」`;tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');document.getElementById('spTip').textContent=ans.c?'拼写正确！':`拼写错误！你的：${ans.u} 正确：${q.a}`;document.getElementById('spTip').className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else if(q.type==='fill'||q.type==='fill-notrans'){ans.dt.forEach((d,i)=>{const ip=document.getElementById('fi'+i);if(ip){ip.value=d.u;ip.classList.add(d.c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show')}})}
+else if(q.type==='fill-choice'){if(ans.selIdx>=0){document.getElementById('opt'+ans.selIdx).classList.add(ans.c?'correct':'wrong');if(!ans.c){const ci=q.opts.indexOf(q.a);if(ci>=0)document.getElementById('opt'+ci).classList.add('correct')}document.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none')}}
 else{const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong')}
 document.getElementById('ansSec').classList.add('show');
 }}
@@ -321,7 +350,8 @@ if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ua=ip.value.tr
 else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=spCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'拼写正确！':`拼写错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
 else if(q.type==='fill'||q.type==='fill-notrans'){const ips=document.querySelectorAll('.fill-input');let allOk=true;ips.forEach((ip,i)=>{const v=ip.value.trim();const a=ip.dataset.a;const c=spCheck(v,a);if(!c)allOk=false;ip.classList.add(c?'correct':'wrong');document.getElementById('fa'+i).classList.add('show');dt.push({u:v,c:c,a:a})});ok=allOk;ua=dt.map(d=>d.u).join(' | ')}
 else if(q.type==='translate'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(ua.length<10){toast('翻译内容太短，请认真作答','error');return}ok=trCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong')}
-answers[q.id]={u:ua,c:ok,dt:dt.length?dt:null};
+else if(q.type==='fill-choice'){const sel=document.getElementById('fcSel').value;if(sel===''){toast('请选择一个答案！','error');return}const idx=+sel;ua=q.opts[idx];ok=ua===q.a;document.getElementById('opt'+idx).classList.add(ok?'correct':'wrong');if(!ok){const correctIdx=q.opts.indexOf(q.a);if(correctIdx>=0)document.getElementById('opt'+correctIdx).classList.add('correct')}document.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none')}
+answers[q.id]={u:ua,c:ok,dt:dt.length?dt:null,selIdx:q.type==='fill-choice'?+document.getElementById('fcSel').value:-1};
 if(!ok)addMistake(q,ua,dt);else toast('正确！','success');
 document.getElementById('ansSec').classList.add('show');
 document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
@@ -403,14 +433,24 @@ function redoGroup(){
   const g=groups[gi];if(!g)return;
   g.questions.forEach(q=>{delete answers[q.id]});
   qi=0;
-  if(mode==='random'){if(g.type.startsWith('vocab'))g.questions=sh(g.questions)}
+  if(g.type==='fill-choice'){
+    const unitData=bank[g.unit];
+    const allWb=[...new Set((unitData.fill||[]).flatMap(s=>s.wb))];
+    g.questions.forEach(q=>{
+      const distractors=allWb.filter(w=>w!==q.a);
+      q.opts=sh(distractors).slice(0,5).concat(q.a);
+      q.opts=sh(q.opts);
+    });
+    if(mode==='random')g.questions=sh(g.questions);
+  }
+  else if(mode==='random'){if(g.type.startsWith('vocab'))g.questions=sh(g.questions)}
   render();updateStats();
   toast('已重置本组题目','success');
 }
 function back(){document.getElementById('setupPanel').classList.remove('hidden');document.getElementById('quizPanel').classList.add('hidden');document.getElementById('statsPanel').classList.add('hidden');document.getElementById('resultPanel').classList.add('hidden');document.getElementById('mistakePanel').classList.add('hidden')}
 
 // ===================== MISTAKE =====================
-function addMistake(q,ua,dt){if(mistakes.find(m=>m.id===q.id))return;const m={id:q.id,type:q.type,unit:q.unit,time:new Date().toLocaleString()};if(q.type==='fill'||q.type==='fill-notrans'){m.q=`选词填空 Unit ${q.unit}`;m.dt=dt}else{m.q=q.q;m.u=ua;m.a=q.a||q.data||q.p}mistakes.push(m);localStorage.setItem('engM',JSON.stringify(mistakes))}
+function addMistake(q,ua,dt){if(mistakes.find(m=>m.id===q.id))return;const m={id:q.id,type:q.type,unit:q.unit,time:new Date().toLocaleString()};if(q.type==='fill'||q.type==='fill-notrans'){m.q=`选词填空 Unit ${q.unit}`;m.dt=dt}else if(q.type==='fill-choice'){m.q=q.q;m.u=ua;m.a=q.a}else{m.q=q.q;m.u=ua;m.a=q.a||q.data||q.p}mistakes.push(m);localStorage.setItem('engM',JSON.stringify(mistakes))}
 function showMistakes(){
 const list=document.getElementById('mistakeList');
 if(!mistakes.length){list.innerHTML='<div style="text-align:center;padding:40px;color:#999">暂无错题，你太棒了！</div>'}
