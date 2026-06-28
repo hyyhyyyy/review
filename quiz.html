@@ -150,6 +150,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <button class="btn btn-secondary" id="prevBtn">上一题</button>
     <div style="display:flex;gap:10px">
       <button class="btn btn-secondary" id="backToSetupBtn">返回设置</button>
+      <button class="btn btn-secondary" id="redoGroupBtn" style="background:#f59e0b;color:#fff">重做本组</button>
       <button class="btn btn-primary" id="checkBtn">提交答案</button>
     </div>
     <button class="btn btn-secondary" id="nextBtn">下一题</button>
@@ -214,6 +215,7 @@ document.getElementById('viewMistakeBtn').addEventListener('click',showMistakes)
 document.getElementById('backFromMistakeBtn').addEventListener('click',back);
 document.getElementById('clearMistakeBtn').addEventListener('click',clearM);
 document.getElementById('backToSetupBtn').addEventListener('click',back);
+document.getElementById('redoGroupBtn').addEventListener('click',redoGroup);
 }
 function sh(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function selOpt(el){if(document.querySelector('#optGroup .option.correct')||document.querySelector('#optGroup .option.wrong'))return;document.querySelectorAll('#optGroup .option').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
@@ -442,6 +444,26 @@ document.getElementById('statsPanel').classList.add('hidden');
 document.getElementById('resultPanel').classList.remove('hidden');
 }
 function restart(){answers={};gi=0;qi=0;if(mode==='random')groups.forEach(g=>{if(g.type.startsWith('vocab')||g.type==='fill-mem-cho')g.questions=sh(g.questions)});document.getElementById('resultPanel').classList.add('hidden');document.getElementById('statsPanel').classList.remove('hidden');document.getElementById('quizPanel').classList.remove('hidden');updateStats();render()}
+function redoGroup(){
+  const g=groups[gi];if(!g)return;
+  // Remove answers for all questions in current group
+  g.questions.forEach(q=>{delete answers[q.id]});
+  qi=0;
+  // Re-shuffle if random mode
+  if(mode==='random'){
+    if(g.type.startsWith('vocab')||g.type==='fill-mem-cho')g.questions=sh(g.questions);
+  }
+  // For fill-mem-cho, regenerate options (new random distractors & order)
+  if(g.type==='fill-mem-cho'){
+    g.questions=g.questions.map(q=>{
+      const wbOthers=(bank[q.unit].fill||[]).flatMap(s=>s.wb).filter(w=>w.toLowerCase()!==q.a.toLowerCase());
+      const distractors=sh([...new Set(wbOthers)]).slice(0,3);
+      return{...q,options:sh([q.a,...distractors])};
+    });
+  }
+  render();updateStats();
+  toast('已重置本组题目','success');
+}
 function back(){document.getElementById('setupPanel').classList.remove('hidden');document.getElementById('quizPanel').classList.add('hidden');document.getElementById('statsPanel').classList.add('hidden');document.getElementById('resultPanel').classList.add('hidden');document.getElementById('mistakePanel').classList.add('hidden')}
 
 // ===================== MISTAKE =====================
