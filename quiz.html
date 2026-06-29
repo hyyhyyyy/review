@@ -377,19 +377,22 @@ if(ok)setTimeout(next,1200);
 function spCheck(u,a){
   function norm(s){
     s=s.toLowerCase().trim();
-    // normalize abbreviations
     s=s.replace(/\bsth\b/g,'something').replace(/\bsb\b/g,'someone');
-    // normalize be-verbs
     s=s.replace(/\b(was|were|are|is|am|been|being)\b/g,'be');
-    // normalize common irregular past/participle to base form
     s=s.replace(/\b(made)\b/g,'make').replace(/\b(took)\b/g,'take').replace(/\b(caught)\b/g,'catch').replace(/\b(went)\b/g,'go');
-    // normalize -ed/-ing/-s to base (simple regex: strip common inflections)
-    s=s.replace(/(\w{3,})eds?\b/g,'$1e').replace(/(\w{3,})ing\b/g,'$1').replace(/(\w{3,})es\b/g,'$1e').replace(/(\w{3,})s\b/g,'$1');
-    // normalize possessives
+    s=s.replace(/(\w{3,})ied\b/g,'$1y');
+    s=s.replace(/(\w{2,})ies\b/g,'$1y');
+    s=s.replace(/(\w{3,})ting\b/g,'$1te');
+    s=s.replace(/(\w{3,})ning\b/g,'$1ne');
+    s=s.replace(/(\w{3,})ring\b/g,'$1re');
+    s=s.replace(/(\w{3,})ling\b/g,'$1le');
+    s=s.replace(/(\w{3,})ying\b/g,'$1ie');
+    s=s.replace(/(\w{3,})ing\b/g,'$1');
+    s=s.replace(/(\w{3,})ed\b/g,'$1');
+    s=s.replace(/(\w{3,})es\b/g,'$1e');
+    s=s.replace(/(\w{3,})s\b/g,'$1');
     s=s.replace(/\b(one's|their|his|her|its|our|my|your)\b/g,"one's");
-    // strip punctuation & ellipsis content
     s=s.replace(/[.,;:!?'"]/g,'');
-    // remove numbers
     s=s.replace(/\b\d[\d,.]*\b/g,'');
     s=s.replace(/\s+/g,' ').trim();
     return s;
@@ -397,19 +400,15 @@ function spCheck(u,a){
   const x=norm(u),y=norm(a);
   if(!x||!y)return false;
   if(x===y)return true;
-  // inclusion check
-  if(x.includes(y)||y.includes(x))return true;
-  // check if all content words in y appear in x (for collocation variants)
-  const xW=x.split(/\s+/).filter(w=>w.length>2), yW=y.split(/\s+/).filter(w=>w.length>2);
-  if(yW.length>1){
-    let m=0;for(const w of yW)if(xW.some(xw=>xw===w||xw.startsWith(w)||w.startsWith(xw)))m++;
-    if(m>=yW.length*0.6)return true;
+  const xW=x.split(/\s+/).filter(w=>w.length>1), yW=y.split(/\s+/).filter(w=>w.length>1);
+  if(xW.length===0||yW.length===0)return false;
+  let m=0;
+  for(const w of yW){
+    if(xW.some(xw=>xw===w||(w.length>=3&&xw.length>=3&&(xw.startsWith(w)||w.startsWith(xw)))))m++;
   }
-  if(xW.length>1){
-    let m=0;for(const w of xW)if(yW.some(yw=>yw===w||yw.startsWith(w)||w.startsWith(yw)))m++;
-    if(m>=xW.length*0.6)return true;
-  }
-  return false;
+  const ratio=m/yW.length;
+  const lenRatio=x.length/Math.max(y.length,1);
+  return ratio>=0.8&&lenRatio>=0.7;
 }
 function cnCheck(u,a){const x=u.replace(/[，。！？、；：\s]/g,'');const y=a.replace(/[，。！？、；：\s;]/g,'');if(!x)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;const kw=y.split(/[；;、]/);if(kw.length>1){let m=0;for(const k of kw)if(x.includes(k))m++;if(m>=kw.length*0.5)return true}return false}
 function trCheck(u,a){if(u.length<a.length*0.3)return false;const uw=u.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());const aw=a.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());let m=0;for(const c of aw)if(u.includes(c))m++;return m>=aw.length*0.25}
