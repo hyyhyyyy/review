@@ -375,40 +375,8 @@ if(ok)setTimeout(next,1200);
 }
 
 function spCheck(u,a){
-  function norm(s){
-    s=s.toLowerCase().trim();
-    s=s.replace(/\bsth\b/g,'something').replace(/\bsb\b/g,'someone');
-    s=s.replace(/\b(was|were|are|is|am|been|being)\b/g,'be');
-    s=s.replace(/\b(made)\b/g,'make').replace(/\b(took)\b/g,'take').replace(/\b(caught)\b/g,'catch').replace(/\b(went)\b/g,'go');
-    s=s.replace(/(\w{3,})ied\b/g,'$1y');
-    s=s.replace(/(\w{2,})ies\b/g,'$1y');
-    s=s.replace(/(\w{3,})ting\b/g,'$1te');
-    s=s.replace(/(\w{3,})ning\b/g,'$1ne');
-    s=s.replace(/(\w{3,})ring\b/g,'$1re');
-    s=s.replace(/(\w{3,})ling\b/g,'$1le');
-    s=s.replace(/(\w{3,})ying\b/g,'$1ie');
-    s=s.replace(/(\w{3,})ing\b/g,'$1');
-    s=s.replace(/(\w{3,})ed\b/g,'$1');
-    s=s.replace(/(\w{3,})es\b/g,'$1e');
-    s=s.replace(/(\w{3,})s\b/g,'$1');
-    s=s.replace(/\b(one's|their|his|her|its|our|my|your)\b/g,"one's");
-    s=s.replace(/[.,;:!?'"]/g,'');
-    s=s.replace(/\b\d[\d,.]*\b/g,'');
-    s=s.replace(/\s+/g,' ').trim();
-    return s;
-  }
-  const x=norm(u),y=norm(a);
-  if(!x||!y)return false;
-  if(x===y)return true;
-  const xW=x.split(/\s+/).filter(w=>w.length>1), yW=y.split(/\s+/).filter(w=>w.length>1);
-  if(xW.length===0||yW.length===0)return false;
-  let m=0;
-  for(const w of yW){
-    if(xW.some(xw=>xw===w||(w.length>=3&&xw.length>=3&&(xw.startsWith(w)||w.startsWith(xw)))))m++;
-  }
-  const ratio=m/yW.length;
-  const lenRatio=x.length/Math.max(y.length,1);
-  return ratio>=0.8&&lenRatio>=0.7;
+  function norm(s){return s.toLowerCase().replace(/[.,;:!?'"]/g,'').replace(/\s+/g,' ').trim()}
+  return norm(u)===norm(a);
 }
 function cnCheck(u,a){const x=u.replace(/[，。！？、；：\s]/g,'');const y=a.replace(/[，。！？、；：\s;]/g,'');if(!x)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;const kw=y.split(/[；;、]/);if(kw.length>1){let m=0;for(const k of kw)if(x.includes(k))m++;if(m>=kw.length*0.5)return true}return false}
 function trCheck(u,a){if(u.length<a.length*0.3)return false;const uw=u.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());const aw=a.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());let m=0;for(const c of aw)if(u.includes(c))m++;return m>=aw.length*0.25}
