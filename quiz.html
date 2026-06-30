@@ -19,6 +19,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .checkbox-item.selected{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:#667eea;box-shadow:0 4px 12px rgba(102,126,234,.3);transform:translateY(-2px)}
 .checkbox-item .check-icon{width:20px;height:20px;border:2px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;transition:all .3s;color:transparent;flex-shrink:0}
 .checkbox-item.selected .check-icon{background:#fff;border-color:#fff;color:#667eea}
+.checkbox-item[data-value="redo-mistakes"]:hover{border-color:#ff4757;box-shadow:0 4px 12px rgba(255,107,107,.3)}
+.checkbox-item[data-value="redo-mistakes"].selected{background:linear-gradient(135deg,#c0392b,#96281b);border-color:#c0392b;box-shadow:0 4px 12px rgba(192,57,43,.4)}
+.checkbox-item[data-value="redo-mistakes"].selected .check-icon{color:#c0392b}
 .mode-group{display:flex;gap:10px;margin-bottom:20px}
 .mode-btn{padding:10px 24px;border-radius:20px;border:2px solid #e0e0e0;background:#fff;cursor:pointer;transition:.3s;font-weight:600}
 .mode-btn:hover{border-color:#667eea;color:#667eea}
@@ -119,6 +122,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="checkbox-item" data-value="fill-notrans" data-group="type"><span class="check-icon">✓</span>选词填空·无翻译</div>
 <div class="checkbox-item" data-value="fill-choice" data-group="type"><span class="check-icon">✓</span>选词填空·选择</div>
 <div class="checkbox-item" data-value="translate" data-group="type"><span class="check-icon">✓</span>段落翻译</div>
+<div class="checkbox-item" data-value="redo-mistakes" data-group="type" style="background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;border-color:#ff6b6b"><span class="check-icon" style="border-color:#fff">✓</span>重做错题</div>
 </div>
 <div class="section-title">出题模式</div>
 <div class="mode-group">
@@ -174,7 +178,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div id="mistakeList"></div>
 <div style="margin-top:16px;text-align:center;display:flex;gap:10px;justify-content:center">
 <button class="btn btn-secondary" id="backFromMistakeBtn">返回首页</button>
-<button class="btn btn-primary" id="redoMistakeBtn">重做错题</button>
 <button class="btn btn-secondary" id="clearMistakeBtn" style="background:#ea4335;color:#fff">清空错题</button>
 </div>
 </div>
@@ -188,7 +191,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 window.onerror=function(msg,url,line){document.body.insertAdjacentHTML('afterbegin','<div style="background:red;color:#fff;padding:10px;font-size:14px;position:fixed;top:0;left:0;z-index:99999;width:100%">JS Error: '+msg+' (line '+line+')</div>');return false};
 // ===================== STATE =====================
 let groups=[],gi=0,qi=0,answers={},mode='sequential',mistakes=JSON.parse(localStorage.getItem('engM')||'[]');
-const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-notrans':'选词填空·无翻译','fill-choice':'选词填空·选择','translate':'段落翻译'};
+const typeNames={'vocab-en':'词汇英译中','vocab-cn':'词汇中译英','fill':'选词填空','fill-notrans':'选词填空·无翻译','fill-choice':'选词填空·选择','translate':'段落翻译','redo-mistakes':'重做错题'};
 
 // ===================== INIT =====================
 function init(){
@@ -215,7 +218,6 @@ document.getElementById('backBtn').addEventListener('click',back);
 document.getElementById('viewMistakeBtn').addEventListener('click',showMistakes);
 document.getElementById('backFromMistakeBtn').addEventListener('click',back);
 document.getElementById('clearMistakeBtn').addEventListener('click',clearM);
-document.getElementById('redoMistakeBtn').addEventListener('click',redoMistakes);
 document.getElementById('backToSetupBtn').addEventListener('click',back);
 document.getElementById('redoGroupBtn').addEventListener('click',redoGroup);
 }
@@ -232,7 +234,9 @@ function selOpt(idx){
 function start(){
 const units=Array.from(document.querySelectorAll('#unitGroup .checkbox-item.selected')).map(el=>+el.dataset.value).sort((a,b)=>a-b);
 const types=Array.from(document.querySelectorAll('#typeGroup .checkbox-item.selected')).map(el=>el.dataset.value);
-if(!units.length||!types.length){alert('请至少选择一个单元和一种题型！');return}
+if(!types.length){alert('请至少选择一种题型！');return}
+if(types.includes('redo-mistakes')){redoMistakes();return}
+if(!units.length){alert('请至少选择一个单元！');return}
 groups=[];
 for(const u of units){
   const unitData=bank[u];if(!unitData)continue;
