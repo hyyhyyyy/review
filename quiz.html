@@ -416,8 +416,8 @@ function spCheck(u,a){
   function norm(s){return s.toLowerCase().replace(/[.,;:!?'"]/g,'').replace(/\s+/g,' ').trim()}
   return norm(u)===norm(a);
 }
-function cnCheck(u,a){const x=u.replace(/[，。！？、；：\s]/g,'');const y=a.replace(/[，。！？、；：\s;]/g,'');if(!x)return false;if(x===y)return true;if(x.includes(y)||y.includes(x))return true;const kw=y.split(/[；;、]/);if(kw.length>1){let m=0;for(const k of kw)if(x.includes(k))m++;if(m>=kw.length*0.5)return true}return false}
-function trCheck(u,a){if(u.length<a.length*0.3)return false;const uw=u.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());const aw=a.replace(/[，。！？、；：]/g,'').split('').filter(c=>c.trim());let m=0;for(const c of aw)if(u.includes(c))m++;return m>=aw.length*0.25}
+function cnCheck(u,a){const x=u.replace(/[，。！？、；：\s]/g,'');const y=a.replace(/[，。！？、；：\s;]/g,'');if(!x)return false;return x===y}
+function trCheck(u,a){return false}
 
 function next(){const g=groups[gi];qi++;if(qi>=g.questions.length){nextGroup();return}render();updateStats()}
 function prev(){if(qi>0){qi--;render();updateStats()}}
