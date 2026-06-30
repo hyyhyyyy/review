@@ -362,8 +362,16 @@ else if(q.type==='fill'||q.type==='fill-notrans'){const shownFa=new Set();ans.dt
 else if(q.type==='fill-choice'){if(ans.selIdx>=0){document.getElementById('opt'+ans.selIdx).classList.add(ans.c?'correct':'wrong');if(!ans.c){const ci=q.opts.indexOf(q.a);if(ci>=0)document.getElementById('opt'+ci).classList.add('correct')}document.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none')}}
 else{const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong')}
 document.getElementById('ansSec').classList.add('show');
-}}
-
+}
+// auto-focus: place cursor in input field for unanswered questions
+if(!answers[sid]){
+  if(q.type==='vocab-en'||q.type==='vocab-cn'||q.type==='translate'){
+    const ip=document.getElementById('usrIn');if(ip)setTimeout(()=>ip.focus(),50);
+  }else if(q.type==='fill'||q.type==='fill-notrans'){
+    const fi=document.querySelector('.fill-input');if(fi)setTimeout(()=>fi.focus(),50);
+  }
+}
+}
 // ===================== DIFF HIGHLIGHT =====================
 function diffHL(user,answer){
   // Highlight chars in answer that differ from user input
