@@ -174,6 +174,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div id="mistakeList"></div>
 <div style="margin-top:16px;text-align:center;display:flex;gap:10px;justify-content:center">
 <button class="btn btn-secondary" id="backFromMistakeBtn">返回首页</button>
+<button class="btn btn-primary" id="redoMistakeBtn">重做错题</button>
 <button class="btn btn-secondary" id="clearMistakeBtn" style="background:#ea4335;color:#fff">清空错题</button>
 </div>
 </div>
@@ -214,6 +215,7 @@ document.getElementById('backBtn').addEventListener('click',back);
 document.getElementById('viewMistakeBtn').addEventListener('click',showMistakes);
 document.getElementById('backFromMistakeBtn').addEventListener('click',back);
 document.getElementById('clearMistakeBtn').addEventListener('click',clearM);
+document.getElementById('redoMistakeBtn').addEventListener('click',redoMistakes);
 document.getElementById('backToSetupBtn').addEventListener('click',back);
 document.getElementById('redoGroupBtn').addEventListener('click',redoGroup);
 }
@@ -390,7 +392,8 @@ else if(q.type==='fill'||q.type==='fill-notrans'){const ips=document.querySelect
 else if(q.type==='translate'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(ua.length<10){toast('翻译内容太短，请认真作答','error');return}ok=trCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong')}
 else if(q.type==='fill-choice'){const sel=document.getElementById('fcSel').value;if(sel===''){toast('请选择一个答案！','error');return}const idx=+sel;ua=q.opts[idx];ok=ua===q.a;document.getElementById('opt'+idx).classList.add(ok?'correct':'wrong');if(!ok){const correctIdx=q.opts.indexOf(q.a);if(correctIdx>=0)document.getElementById('opt'+correctIdx).classList.add('correct')}document.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none')}
 answers[q.id]={u:ua,c:ok,dt:dt.length?dt:null,selIdx:q.type==='fill-choice'?+document.getElementById('fcSel').value:-1};
-if(!ok)addMistake(q,ua,dt);else toast('正确！','success');
+if(!ok)addMistake(q,ua,dt);else{toast('正确！','success');// Remove from mistakes if answered correctly during redo
+  const mi=mistakes.findIndex(m=>m.id===q.id);if(mi>=0){mistakes.splice(mi,1);localStorage.setItem('engM',JSON.stringify(mistakes))}}
 document.getElementById('ansSec').classList.add('show');
 document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
 updateStats();
@@ -463,6 +466,88 @@ else{list.innerHTML=mistakes.map(m=>{let c='';if(m.type==='fill'&&m.dt){c=m.dt.m
 back();document.getElementById('mistakePanel').classList.remove('hidden');
 }
 function clearM(){if(confirm('确定清空所有错题记录吗？')){mistakes=[];localStorage.removeItem('engM');showMistakes()}}
+
+// ===================== REDO MISTAKES =====================
+function redoMistakes(){
+  if(!mistakes.length){toast('没有错题可重做','error');return}
+  // Deduplicate by id (in case same question appears multiple times)
+  const seen=new Set();const uniqueMistakes=mistakes.filter(m=>{if(seen.has(m.id))return false;seen.add(m.id);return true});
+  // Group mistakes by type+unit for fill types (which are group-level)
+  const fillGroups=new Map(); // key: "f-{u}-{setIdx}" or "fn-{u}-{setIdx}"
+  const otherQuestions=[];
+  for(const m of uniqueMistakes){
+    if(m.type==='fill'||m.type==='fill-notrans'){
+      // Parse id: f-{u}-{setIdx} or fn-{u}-{setIdx}
+      const parts=m.id.split('-');
+      const prefix=parts[0]; // f or fn
+      const u=parts[1];
+      const setIdx=parts[2];
+      const key=`${prefix}-${u}-${setIdx}`;
+      if(!fillGroups.has(key))fillGroups.set(key,{type:m.type,unit:u,setIdx:setIdx,id:m.id});
+    }else{
+      otherQuestions.push(m);
+    }
+  }
+  // Rebuild groups
+  groups=[];
+  // Add fill groups
+  for(const [key,info] of fillGroups){
+    const unitData=bank[info.unit];
+    const sets=unitData?unitData.fill:[];
+    const set=sets[info.setIdx];
+    if(!set||!set.bl||!set.bl.length)continue;
+    groups.push({
+      unit:info.unit,type:info.type,
+      name:`Unit ${info.unit} · ${typeNames[info.type]} · ${set.title||'练习'+(+info.setIdx+1)}`,
+      questions:[{id:info.id,type:info.type,unit:info.unit,data:set}]
+    });
+  }
+  // Rebuild individual questions from mistake data
+  for(const m of otherQuestions){
+    if(m.type==='vocab-en'){
+      const parts=m.id.split('-'); // ve-{u}-{idx}
+      const u=parts[1],idx=+parts[2];
+      const item=bank[u]&&bank[u].vocab&&bank[u].vocab[idx];
+      if(!item)continue;
+      groups.push({unit:u,type:m.type,name:`Unit ${u} · ${typeNames[m.type]}`,questions:[{id:m.id,type:m.type,unit:u,q:`「${item.e}」的中文意思是？`,a:item.c}]});
+    }else if(m.type==='vocab-cn'){
+      const parts=m.id.split('-'); // vc-{u}-{idx}
+      const u=parts[1],idx=+parts[2];
+      const item=bank[u]&&bank[u].vocab&&bank[u].vocab[idx];
+      if(!item)continue;
+      groups.push({unit:u,type:m.type,name:`Unit ${u} · ${typeNames[m.type]}`,questions:[{id:m.id,type:m.type,unit:u,q:`「${item.c}」的英文表达是？`,a:item.e}]});
+    }else if(m.type==='fill-choice'){
+      const parts=m.id.split('-'); // fc-{u}-{setIdx}-{bi}
+      const u=parts[1],setIdx=+parts[2],bi=+parts[3];
+      const unitData=bank[u];
+      const sets=unitData?unitData.fill:[];
+      const set=sets[setIdx];
+      const b=set&&set.bl&&set.bl[bi];
+      if(!b)continue;
+      const allWb=[...new Set(sets.flatMap(s=>s.wb))];
+      const fullA=b.a.includes('|')?b.a.replace(/\|/g,' '):b.a;
+      const distractors=allWb.filter(w=>w!==b.a&&w!==fullA&&w.replace(/\s*\.\.\.\s*/g,' ')!==fullA);
+      const opts=sh(distractors).slice(0,5).concat(fullA);
+      groups.push({unit:u,type:m.type,name:`Unit ${u} · ${typeNames[m.type]}`,questions:[{id:m.id,type:m.type,unit:u,q:b.t,a:fullA,h:b.h,cn:b.cn,opts:sh(opts),setTitle:set.title||'练习'+(setIdx+1),setIdx:setIdx}]});
+    }else if(m.type==='translate'){
+      const parts=m.id.split('-'); // t-{u}
+      const u=parts[1];
+      const tr=bank[u]&&bank[u].trans;
+      if(!tr||!tr.e)continue;
+      groups.push({unit:u,type:m.type,name:`Unit ${u} · ${typeNames[m.type]}`,questions:[{id:m.id,type:m.type,unit:u,p:tr.e,a:tr.c}]});
+    }
+  }
+  if(!groups.length){toast('没有有效的错题可重做','error');return}
+  if(mode==='random')groups=sh(groups);
+  gi=0;qi=0;answers={};
+  document.getElementById('setupPanel').classList.add('hidden');
+  document.getElementById('mistakePanel').classList.add('hidden');
+  document.getElementById('resultPanel').classList.add('hidden');
+  document.getElementById('statsPanel').classList.remove('hidden');
+  document.getElementById('quizPanel').classList.remove('hidden');
+  updateStats();render();
+  toast(`开始重做 ${uniqueMistakes.length} 道错题`,'success');
+}
 
 // ===================== TOAST =====================
 function toast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.classList.add('show');if(type==='success')setTimeout(()=>t.classList.remove('show'),1000)}
