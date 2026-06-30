@@ -92,6 +92,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .spell-tip.show{display:block}
 .spell-tip.ok{background:#e8f5e9;color:#2e7d32}
 .spell-tip.err{background:#fce8e6;color:#c62828}
+.spell-tip .diff{background:#ffcdd2;color:#b71c1c;padding:0 2px;border-radius:3px;font-weight:600}
 .group-title{text-align:center;padding:10px 0;margin-bottom:10px;color:#667eea;font-weight:700;font-size:1.1em}
 .hidden{display:none!important}
 @media(max-width:600px){.header h1{font-size:1.8em}.checkbox-group{grid-template-columns:repeat(2,1fr)}.stats-bar{flex-direction:column;gap:10px}.controls{flex-direction:column}}
@@ -349,20 +350,42 @@ html+=`</div>`;box.innerHTML=html;
 // restore state
 const sid=q.id;if(answers[sid]){
 const ans=answers[sid];document.getElementById('checkBtn').textContent='已作答';document.getElementById('checkBtn').disabled=true;
-if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ans.c?'正确！':`错误！你的：「${ans.u}」 正确：「${q.a}」`;tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
-else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');document.getElementById('spTip').textContent=ans.c?'拼写正确！':`拼写错误！你的：${ans.u} 正确：${q.a}`;document.getElementById('spTip').className='spell-tip '+(ans.c?'ok':'err')+' show'}
+if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');const tip=document.getElementById('spTip');if(ans.c){tip.textContent='正确！'}else{tip.innerHTML=`错误！你的：「${ans.u}」 正确：「${diffHL(ans.u,q.a)}」`}tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
+else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong');const tip=document.getElementById('spTip');if(ans.c){tip.textContent='拼写正确！'}else{tip.innerHTML=`拼写错误！你的：「${ans.u}」 正确：「${diffHL(ans.u,q.a)}」`}tip.className='spell-tip '+(ans.c?'ok':'err')+' show'}
 else if(q.type==='fill'||q.type==='fill-notrans'){const shownFa=new Set();ans.dt.forEach((d,i)=>{const ip=document.getElementById('fi'+i);if(ip){ip.value=d.u;ip.classList.add(d.c?'correct':'wrong');const bi=ip.dataset.bi;if(!shownFa.has(bi)){document.getElementById('fa'+bi).classList.add('show');shownFa.add(bi)}}})}
 else if(q.type==='fill-choice'){if(ans.selIdx>=0){document.getElementById('opt'+ans.selIdx).classList.add(ans.c?'correct':'wrong');if(!ans.c){const ci=q.opts.indexOf(q.a);if(ci>=0)document.getElementById('opt'+ci).classList.add('correct')}document.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none')}}
 else{const ip=document.getElementById('usrIn');ip.value=ans.u;ip.classList.add(ans.c?'correct':'wrong')}
 document.getElementById('ansSec').classList.add('show');
 }}
 
+// ===================== DIFF HIGHLIGHT =====================
+function diffHL(user,answer){
+  // Highlight chars in answer that differ from user input
+  const u=[...user],a=[...answer];
+  // LCS-based diff: mark chars in answer not matched by user
+  const m=u.length,n=a.length;
+  const dp=Array.from({length:m+1},()=>new Uint16Array(n+1));
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)dp[i][j]=u[i-1]===a[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+  // backtrack to find matched positions in answer
+  const matched=new Set();
+  let i=m,j=n;
+  while(i>0&&j>0){if(u[i-1]===a[j-1]){matched.add(j-1);i--;j--}else if(dp[i-1][j]>dp[i][j-1])i--;else j--}
+  // build highlighted HTML
+  let html='';
+  for(let k=0;k<n;k++){
+    const ch=a[k]==='<'?'&lt;':a[k]==='>'?'&gt;':a[k]==='&'?'&amp;':a[k];
+    if(matched.has(k))html+=ch;
+    else html+=`<span class="diff">${ch}</span>`;
+  }
+  return html;
+}
+
 // ===================== CHECK =====================
 function check(){
 const g=groups[gi],q=g.questions[qi];if(answers[q.id])return;
 let ok=false,ua='',dt=[];
-if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=cnCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'正确！':`错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
-else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=spCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');tip.textContent=ok?'拼写正确！':`拼写错误！你的：「${ua}」 正确：「${q.a}」`;tip.className='spell-tip '+(ok?'ok':'err')+' show'}
+if(q.type==='vocab-en'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=cnCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');if(ok){tip.textContent='正确！'}else{tip.innerHTML=`错误！你的：「${ua}」 正确：「${diffHL(ua,q.a)}」`}tip.className='spell-tip '+(ok?'ok':'err')+' show'}
+else if(q.type==='vocab-cn'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(!ua){toast('请输入答案！','error');return}ok=spCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong');const tip=document.getElementById('spTip');if(ok){tip.textContent='拼写正确！'}else{tip.innerHTML=`拼写错误！你的：「${ua}」 正确：「${diffHL(ua,q.a)}」`}tip.className='spell-tip '+(ok?'ok':'err')+' show'}
 else if(q.type==='fill'||q.type==='fill-notrans'){const ips=document.querySelectorAll('.fill-input');let allOk=true;const shownFa=new Set();ips.forEach((ip,i)=>{const v=ip.value.trim();const a=ip.dataset.a;const c=spCheck(v,a);if(!c)allOk=false;ip.classList.add(c?'correct':'wrong');const bi=ip.dataset.bi;if(!shownFa.has(bi)){document.getElementById('fa'+bi).classList.add('show');shownFa.add(bi)}dt.push({u:v,c:c,a:a})});ok=allOk;ua=dt.map(d=>d.u).join(' | ')}
 else if(q.type==='translate'){const ip=document.getElementById('usrIn');ua=ip.value.trim();if(ua.length<10){toast('翻译内容太短，请认真作答','error');return}ok=trCheck(ua,q.a);ip.classList.add(ok?'correct':'wrong')}
 else if(q.type==='fill-choice'){const sel=document.getElementById('fcSel').value;if(sel===''){toast('请选择一个答案！','error');return}const idx=+sel;ua=q.opts[idx];ok=ua===q.a;document.getElementById('opt'+idx).classList.add(ok?'correct':'wrong');if(!ok){const correctIdx=q.opts.indexOf(q.a);if(correctIdx>=0)document.getElementById('opt'+correctIdx).classList.add('correct')}document.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none')}
